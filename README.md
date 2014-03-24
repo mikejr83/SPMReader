@@ -9,10 +9,7 @@ Semi-sample output:
 	<Spektrum Generator="DX18" VCode="1.03" Originator="HH201JAAk4AGwAGj0ELG1szlFbVB+S" PosIndex="5" PosMaxSail="10" Type="Sail" curveIndex="7" enabXPLUS="Disabled" Name="DX18 Sail 2AL 2FL V3" />
 	  <Sail Wing="Ail_2_Flap_2" Tail="Normal" Motor="None" />
 	</Spektrum>
-<<<<<<< HEAD
-```  
-=======
->>>>>>> d0f8a5c93bfd7d6f9ce44bbeba7d39ab6e20d48d
+```
   
 ## Goals
 =========
