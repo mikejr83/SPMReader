@@ -24,7 +24,6 @@ namespace SPMReader.Readers
     {
       string[] lines = this.FileContents.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
-      Stack<string> xmlTypeSections = new Stack<string>();
       XElement currentNode = null;
       XDocument doc = new XDocument();
       XNamespace ns = "urn:Spektrum/DX18.xsd";
@@ -44,35 +43,68 @@ namespace SPMReader.Readers
           if (line[1] == '/')
           {
             currentNode = currentNode.Parent;
-            xmlTypeSections.Pop();
           }
           else
           {
             XElement element = new XElement(ns + line.Substring(1, line.Length - 2));
             currentNode.Add(element);
             currentNode = element;
-            xmlTypeSections.Push(line);
           }
         }
         else
         {
-          string theLine = line;
+          string theLine = line, attrPrefixValue = null, attrSeparatorStyle = null;
+          bool isString = false, valueHasPreceedingSpace = false;
 
           theLine = theLine.Trim();
-          if (theLine.StartsWith(";") || theLine.StartsWith("*"))
+          if(theLine.StartsWith("; "))
+          {
+            attrPrefixValue = "; ";
+            theLine = theLine.Substring(2).Trim();
+          }
+          else if (theLine.StartsWith("*"))
+          {
+            attrPrefixValue = "*";
             theLine = theLine.Substring(1).Trim();
+          }
+            
 
           string[] split = null;
 
           if (theLine.Contains('='))
+          {
+            attrSeparatorStyle = "=";
             split = theLine.Split(new char[] { '=' });
+          }
           else
+          {
+            attrSeparatorStyle = ":";
             split = theLine.Split(new char[] { ':' });
+          }
+
+          isString = split[1].Contains("\"");
+          valueHasPreceedingSpace = split[1].StartsWith(" ");
 
           string value = split[1].Replace("\"", string.Empty).Trim();
 
           XAttribute attr = new XAttribute(split[0].Trim(), value);
           currentNode.Add(attr);
+
+          XElement dataDescElem = currentNode.Element(ns + "AttributeDescriptors");
+          if(dataDescElem == null)
+          {
+            dataDescElem = new XElement(ns + "AttributeDescriptors");
+            currentNode.Add(dataDescElem);
+          }
+
+          XElement descElem = new XElement(ns + "Descriptor");
+          descElem.SetAttributeValue("PrefixValue", attrPrefixValue);
+          descElem.SetAttributeValue("SeparatorStyle", attrSeparatorStyle);
+          descElem.SetAttributeValue("IsString", isString);
+          descElem.SetAttributeValue("AttributeName", split[0].Trim());
+          descElem.SetAttributeValue("ValueHasPreceedingSpace", valueHasPreceedingSpace);
+
+          dataDescElem.Add(descElem);
         }
       }
 
