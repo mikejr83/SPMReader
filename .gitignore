@@ -1,0 +1,6 @@
+*.suo
+*.user
+/SPMReader/SPMReader/bin
+/SPMReader/SPMReader/obj
+
+*.vspscc
