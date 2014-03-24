@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using SPMReader.Helpers;
 
 namespace SPMReader.Readers
 {
@@ -71,6 +72,15 @@ namespace SPMReader.Readers
           XAttribute attr = new XAttribute(split[0].Trim(), value);
           currentNode.Add(attr);
         }
+      }
+
+      try
+      {
+        XSD.SpektrumModel model = SerializationHelper<XSD.SpektrumModel>.DeserializeFromParse(doc.ToString());
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine("Failed to deserialize the DX18 XML to an object structure.");
       }
 
       this._ReadFile = doc;
