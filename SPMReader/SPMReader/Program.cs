@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +10,16 @@ namespace SPMReader
 {
   class Program
   {
+    const string USAGE = @"SPEKTRUM SPM File Reader
+------------------------
+Usage: SPMReader.exe <filename>
+";
+
     static void Main(string[] args)
     {
+      if (args == null || args.Length < 1)
+        Console.WriteLine(USAGE);
+
       Reader reader = SPMReaderFactory.CreateReader(args[0]);
 
       reader.Read();
@@ -20,6 +29,15 @@ namespace SPMReader
       string output = null;
       if (doc != null)
         output = doc.ToString();
+
+      FileInfo input = new FileInfo(args[0]);
+
+      string outputFilename = args[0].ToLowerInvariant().Replace(".spm", ".xml");
+      
+      string temp = Path.GetTempFileName();
+
+      File.WriteAllText(temp, output);
+      File.Copy(temp, outputFilename, true);
     }
   }
 }
