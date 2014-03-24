@@ -56,13 +56,15 @@
     <Compile Include="Readers\DX18.cs" />
     <Compile Include="Readers\Reader.cs" />
     <Compile Include="SPMReaderFactory.cs" />
-    <Compile Include="XSD\DX18.cs">
+    <Compile Include="Writers\DX18.cs" />
+    <Compile Include="Writers\Writer.cs" />
+    <Compile Include="XSD\DX18\DX18.cs">
       <DependentUpon>DX18.xsd</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="XSD\DX18.xsd">
+    <None Include="XSD\DX18\DX18.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

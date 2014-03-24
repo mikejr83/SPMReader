@@ -12,6 +12,7 @@ namespace SPMReader.Readers
   public class DX18 : Reader
   {
     XDocument _ReadFile = null;
+    XSD.DX18.SpektrumModel _Model = null;
 
     public DX18(string fileContents)
       : base(fileContents)
@@ -26,7 +27,8 @@ namespace SPMReader.Readers
       Stack<string> xmlTypeSections = new Stack<string>();
       XElement currentNode = null;
       XDocument doc = new XDocument();
-      doc.Add(new XElement("SPM"));
+      XNamespace ns = "urn:Spektrum/DX18.xsd";
+      doc.Add(new XElement(ns + "SPM"));
       currentNode = doc.Root;
 
       Regex xmlTagTypeFinder = new Regex("<.*>");
@@ -46,7 +48,7 @@ namespace SPMReader.Readers
           }
           else
           {
-            XElement element = new XElement(line.Substring(1, line.Length - 2));
+            XElement element = new XElement(ns + line.Substring(1, line.Length - 2));
             currentNode.Add(element);
             currentNode = element;
             xmlTypeSections.Push(line);
@@ -76,11 +78,11 @@ namespace SPMReader.Readers
 
       try
       {
-        XSD.SpektrumModel model = SerializationHelper<XSD.SpektrumModel>.DeserializeFromParse(doc.ToString());
+        this._Model = SerializationHelper<XSD.DX18.SpektrumModel>.DeserializeFromParse(doc.ToString());
       }
       catch (Exception e)
       {
-        Console.WriteLine("Failed to deserialize the DX18 XML to an object structure.");
+        Console.WriteLine("Failed to deserialize the DX18 XML to an object structure. " + e.ToString());
       }
 
       this._ReadFile = doc;
