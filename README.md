@@ -26,4 +26,4 @@ If an XML standard was designed around the SPM file from Spektrum (and possibly 
 
 Ideally this project should take in any .SPM file from any Spektrum AirWave compatible receiver and convert it to a *standardized** XML output. In the long run it would be great to see a GUI editor for the XML which could in turn use this *library* to convert the XML back to a .SPM file for use in a Spektrum radio. It could also serve as a converter from one model of Spektrum radio to another or to a completely different computer radio manufacturer.
 
-**standardized xml* - There seems to be an ordering and a structure to SPM files already. An agreeded upon DTD or XSD should be one of the goals of the project.
+*_standardized xml_ - There seems to be an ordering and a structure to SPM files already. An agreeded upon DTD or XSD should be one of the goals of the project.
