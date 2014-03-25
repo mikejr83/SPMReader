@@ -7,61 +7,9 @@
 >
   <xs:element name="SPM" type="SpektrumModel" />
 
-  <xs:complexType name="SpektrumModel">
+  <xs:complexType abstract="true" name="Model">
     <xs:sequence>
-      <xs:element name="Spektrum" minOccurs="1" maxOccurs="1" type="SpektrumInformation" />
-
-      <xs:element name="Sail" minOccurs="0" maxOccurs="1" type="SailPlaneInformation" />
-
-      <xs:element name="FlpEleMix" minOccurs="0" maxOccurs="1" type="FlapElevatorMixing" />
-      <xs:element name="EF-Mix" minOccurs="0" maxOccurs="1" type="ElevatorFlapMxing" />
-      <xs:element name="AR-Mix-S" minOccurs="0" maxOccurs="1" type="AileronRudderMixing" />
-      <xs:element name="AF-Mix-S" minOccurs="0" maxOccurs="1" type="AileronFlapsMixing" />
-
-      <xs:element name="Diff-Ail" minOccurs="0" maxOccurs="1" type="Differential" />
-      <xs:element name="Diff-Flap" minOccurs="0" maxOccurs="1" type="Differential" />
-      <xs:element name="Diff-Tip" minOccurs="0" maxOccurs="1" type="Differential" />
-      <xs:element name="Diff-Rud" minOccurs="0" maxOccurs="1" type="Differential" />
-
-      <xs:element name="CamberMix" minOccurs="0" maxOccurs="1" type="Camber" />
-      <xs:element name="CamberPreset" minOccurs="0" maxOccurs="1" type="Camber" />
-
-      <xs:element name="Config" minOccurs="1" maxOccurs="1" type="Configuration" />
-
-      <xs:element name="Trainer" minOccurs="1" maxOccurs="1" type="Trainer" />
-
-      <xs:element name="FMode" minOccurs="1" maxOccurs="1" type="FlightMode" />
-
-      <xs:element name="Analog" minOccurs="1" maxOccurs="unbounded" type="Analog" />
-
-      <xs:element name="Special" minOccurs="0" maxOccurs="unbounded" type="IndexToSourceID" />
-
-      <xs:element name="SoftSw"  minOccurs="0" maxOccurs="unbounded" type="IndexToSourceID" />
-
-      <xs:element name="TrimID" minOccurs="0" maxOccurs="unbounded" type="IndexToSourceID" />
-
-      <xs:element name="Digital" minOccurs="0" maxOccurs="unbounded" type="Digital" />
-
-      <xs:element name="Trim" minOccurs="0" maxOccurs="unbounded" type="Trim" />
-
-      <xs:element name="Servo" minOccurs="0" maxOccurs="unbounded" type="Servo" />
-
-      <xs:element name="DR_Expo"  minOccurs="0" maxOccurs="unbounded" type="DualRateExpo" />
-
-      <xs:element name="P-Mix"  minOccurs="0" maxOccurs="unbounded" type="PMix" />
-
-      <xs:element name="ThroCut" minOccurs="1" maxOccurs="1" type="ThrottleCut" />
-      <xs:element name="ThroCurve" minOccurs="1" maxOccurs="1" type="ThrottleCurve"  />
-
-      <xs:element name="Warning" minOccurs="1" maxOccurs="1" type="Warning" />
-
-      <xs:element name="Timer" minOccurs="0" maxOccurs="unbounded" type="Timer" />
-
-      <xs:element name="Telemetry" minOccurs="1" maxOccurs="1" type="Telemetry" />
-
-      <xs:element name="Preflight" minOccurs="1" maxOccurs="1" type="Preflight" />
-
-      <xs:element name="FMode_Names" minOccurs="1" maxOccurs="1" type="FlightModeNameCollection" />
+      <xs:element name="ModelDescription" minOccurs="1" maxOccurs="1" type="ModelDescription" />
     </xs:sequence>
   </xs:complexType>
 
@@ -77,6 +25,15 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="ModelDescription">
+    <xs:sequence>
+      <xs:element name="PrefixModelText" minOccurs="0" maxOccurs="1" type="xs:string" />
+      <xs:element name="PostfixModelText" minOccurs="0" maxOccurs="1" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="EOFMarkerText" type="xs:string" use="optional" default="*EOF*" />
+    <xs:attribute name="NewLineMarker" type="xs:string" use="required" />
+  </xs:complexType>
+
   <xs:complexType name="Descriptor">
     <xs:attribute name="SeparatorStyle" type="xs:string" use="required" />
     <xs:attribute name="IsString" type="xs:boolean" use="required" />
@@ -85,6 +42,68 @@
     <xs:attribute name="PrefixValue" type="xs:string" use="optional" />
   </xs:complexType>
 
+  <xs:complexType name="SpektrumModel">
+    <xs:complexContent>
+      <xs:extension base="Model">
+        <xs:sequence>
+          <xs:element name="Spektrum" minOccurs="1" maxOccurs="1" type="SpektrumInformation" />
+
+          <xs:element name="Sail" minOccurs="0" maxOccurs="1" type="SailPlaneInformation" />
+
+          <xs:element name="FlpEleMix" minOccurs="0" maxOccurs="1" type="FlapElevatorMixing" />
+          <xs:element name="EF-Mix" minOccurs="0" maxOccurs="1" type="ElevatorFlapMxing" />
+          <xs:element name="AR-Mix-S" minOccurs="0" maxOccurs="1" type="AileronRudderMixing" />
+          <xs:element name="AF-Mix-S" minOccurs="0" maxOccurs="1" type="AileronFlapsMixing" />
+
+          <xs:element name="Diff-Ail" minOccurs="0" maxOccurs="1" type="Differential" />
+          <xs:element name="Diff-Flap" minOccurs="0" maxOccurs="1" type="Differential" />
+          <xs:element name="Diff-Tip" minOccurs="0" maxOccurs="1" type="Differential" />
+          <xs:element name="Diff-Rud" minOccurs="0" maxOccurs="1" type="Differential" />
+
+          <xs:element name="CamberMix" minOccurs="0" maxOccurs="1" type="Camber" />
+          <xs:element name="CamberPreset" minOccurs="0" maxOccurs="1" type="Camber" />
+
+          <xs:element name="Config" minOccurs="1" maxOccurs="1" type="Configuration" />
+
+          <xs:element name="Trainer" minOccurs="1" maxOccurs="1" type="Trainer" />
+
+          <xs:element name="FMode" minOccurs="1" maxOccurs="1" type="FlightMode" />
+
+          <xs:element name="Analog" minOccurs="1" maxOccurs="unbounded" type="Analog" />
+
+          <xs:element name="Special" minOccurs="0" maxOccurs="unbounded" type="IndexToSourceID" />
+
+          <xs:element name="SoftSw"  minOccurs="0" maxOccurs="unbounded" type="IndexToSourceID" />
+
+          <xs:element name="TrimID" minOccurs="0" maxOccurs="unbounded" type="IndexToSourceID" />
+
+          <xs:element name="Digital" minOccurs="0" maxOccurs="unbounded" type="Digital" />
+
+          <xs:element name="Trim" minOccurs="0" maxOccurs="unbounded" type="Trim" />
+
+          <xs:element name="Servo" minOccurs="0" maxOccurs="unbounded" type="Servo" />
+
+          <xs:element name="DR_Expo"  minOccurs="0" maxOccurs="unbounded" type="DualRateExpo" />
+
+          <xs:element name="P-Mix"  minOccurs="0" maxOccurs="unbounded" type="PMix" />
+
+          <xs:element name="ThroCut" minOccurs="1" maxOccurs="1" type="ThrottleCut" />
+          <xs:element name="ThroCurve" minOccurs="1" maxOccurs="1" type="ThrottleCurve"  />
+
+          <xs:element name="Warning" minOccurs="1" maxOccurs="1" type="Warning" />
+
+          <xs:element name="Timer" minOccurs="0" maxOccurs="unbounded" type="Timer" />
+
+          <xs:element name="Telemetry" minOccurs="1" maxOccurs="1" type="Telemetry" />
+
+          <xs:element name="Preflight" minOccurs="1" maxOccurs="1" type="Preflight" />
+
+          <xs:element name="FMode_Names" minOccurs="1" maxOccurs="1" type="FlightModeNameCollection" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+ 
   <xs:complexType name="SpektrumInformation">
     <xs:complexContent>
       <xs:extension base="ComplexType">

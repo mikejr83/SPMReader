@@ -22,7 +22,7 @@ namespace SPMReader.XSD.DX18 {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:Spektrum/DX18.xsd")]
     [System.Xml.Serialization.XmlRootAttribute("SPM", Namespace="urn:Spektrum/DX18.xsd", IsNullable=false)]
-    public partial class SpektrumModel {
+    public partial class SpektrumModel : Model {
         
         private SpektrumInformation spektrumField;
         
@@ -664,6 +664,92 @@ namespace SPMReader.XSD.DX18 {
             }
             set {
                 this.prefixValueField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:Spektrum/DX18.xsd")]
+    public partial class ModelDescription {
+        
+        private string prefixModelTextField;
+        
+        private string postfixModelTextField;
+        
+        private string eOFMarkerTextField;
+        
+        private string newLineMarkerField;
+        
+        public ModelDescription() {
+            this.eOFMarkerTextField = "*EOF*";
+        }
+        
+        /// <remarks/>
+        public string PrefixModelText {
+            get {
+                return this.prefixModelTextField;
+            }
+            set {
+                this.prefixModelTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PostfixModelText {
+            get {
+                return this.postfixModelTextField;
+            }
+            set {
+                this.postfixModelTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("*EOF*")]
+        public string EOFMarkerText {
+            get {
+                return this.eOFMarkerTextField;
+            }
+            set {
+                this.eOFMarkerTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string NewLineMarker {
+            get {
+                return this.newLineMarkerField;
+            }
+            set {
+                this.newLineMarkerField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SpektrumModel))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:Spektrum/DX18.xsd")]
+    public abstract partial class Model {
+        
+        private ModelDescription modelDescriptionField;
+        
+        /// <remarks/>
+        public ModelDescription ModelDescription {
+            get {
+                return this.modelDescriptionField;
+            }
+            set {
+                this.modelDescriptionField = value;
             }
         }
     }

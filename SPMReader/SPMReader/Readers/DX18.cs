@@ -30,13 +30,30 @@ namespace SPMReader.Readers
       doc.Add(new XElement(ns + "SPM"));
       currentNode = doc.Root;
 
+      XElement modelDescription = new XElement(ns + "ModelDescription");
+      modelDescription.SetAttributeValue("EOFMarkerText", "*EOF*");
+      modelDescription.SetAttributeValue("NewLineMarker", "\r");
+      doc.Root.Add(modelDescription);
+
       Regex xmlTagTypeFinder = new Regex("<.*>");
       Regex bracketXmlTagTypeFinder = new Regex(@"\[.*]");
+
+      bool foundEOF = false;
+      string postfixText = null;
 
       foreach (string line in lines)
       {
         if (line.Equals("*EOF*", StringComparison.OrdinalIgnoreCase))
-          break;
+        {
+          foundEOF = true;
+          continue;
+        }          
+
+        if(foundEOF)
+        {
+          postfixText += line;
+          continue;
+        }
 
         if (xmlTagTypeFinder.IsMatch(line) || bracketXmlTagTypeFinder.IsMatch(line))
         {
@@ -106,6 +123,14 @@ namespace SPMReader.Readers
 
           dataDescElem.Add(descElem);
         }
+      }
+
+      if(!string.IsNullOrEmpty(postfixText))
+      {
+        XElement postfixModelText = new XElement(ns + "PostfixModelText");
+        postfixModelText.Value = String.Join(" ", UTF8Encoding.UTF8.GetBytes(postfixText));
+        //postfixModelText.SetValue(postfixText);
+        modelDescription.Add(postfixModelText);
       }
 
       try
