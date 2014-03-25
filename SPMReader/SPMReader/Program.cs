@@ -38,6 +38,9 @@ Usage: SPMReader.exe <filename>
 
       File.WriteAllText(temp, output);
       File.Copy(temp, outputFilename, true);
+
+      Writers.DX18 writer = new Writers.DX18(reader as DX18);
+      string spm = writer.OutputToSPMFormat();
     }
   }
 }

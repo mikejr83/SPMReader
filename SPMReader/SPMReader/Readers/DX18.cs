@@ -102,7 +102,12 @@ namespace SPMReader.Readers
           isString = split[1].Contains("\"");
           valueHasPreceedingSpace = split[1].StartsWith(" ");
 
-          string value = split[1].Replace("\"", string.Empty).Trim();
+          string value = null;
+          
+          if(isString)
+            value = split[1].Replace("\"", string.Empty);
+          else
+            value = split[1].Replace("\"", string.Empty).Trim();
 
           XAttribute attr = new XAttribute(split[0].Trim(), value);
           currentNode.Add(attr);

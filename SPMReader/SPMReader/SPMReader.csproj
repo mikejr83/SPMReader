@@ -57,7 +57,7 @@
     <Compile Include="Readers\Reader.cs" />
     <Compile Include="SPMReaderFactory.cs" />
     <Compile Include="Writers\DX18.cs" />
-    <Compile Include="Writers\Writer.cs" />
+    <Compile Include="Writers\ISPMWriter.cs" />
     <Compile Include="XSD\DX18\DX18.cs">
       <DependentUpon>DX18.xsd</DependentUpon>
     </Compile>
