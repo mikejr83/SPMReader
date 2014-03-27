@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using SPMReader.Convertable;
+using SPMReader.Models.Spektrum.DX18;
 
-namespace SPMReader.Writers
+namespace SPMReader.Writers.Spektrum
 {
-  public class DX18 : ISPMWriter
+  public class DX18 : ISPMWriter, IConvertableWriter
   {
-    Readers.DX18 _Reader;
+    Readers.Spektrum.DX18 _Reader;
 
-    internal DX18(Readers.DX18 reader)
+    internal DX18(Readers.Spektrum.DX18 reader)
     {
       this._Reader = reader;
     }
@@ -98,30 +100,19 @@ namespace SPMReader.Writers
       }
     }
 
-    //protected override string CreateContents()
-    //{
-    //  XDocument data = this._Reader.ExportXDocument();
+    #region IConvertableWriter Members
 
-    //  StringBuilder contentsBuilder = new StringBuilder();
+    public void Convert(IConvertableReader reader)
+    {
+      IConvertableModel model = reader.LoadConvertableModel();
 
-    //  foreach(XElement element in data.Root.Elements())
-    //  {
-    //    contentsBuilder.AppendFormat("<{0}>", element.Name.LocalName);
-    //    contentsBuilder.AppendLine();
+      SpektrumModel newModel = new SpektrumModel();
 
-    //    foreach(XAttribute attr in element.Attributes())
-    //    {
+      newModel.Spektrum = new SpektrumInformation();
+      newModel.Spektrum.Name = model.ModelName;
+      newModel.Spektrum.VCode = " 1.05";
+    }
 
-    //    }
-
-    //    contentsBuilder.AppendFormat("</{0}>", element.Name.LocalName);
-    //    contentsBuilder.AppendLine();
-    //    contentsBuilder.AppendLine();
-    //  }
-
-    //  return contentsBuilder.ToString();
-    //}
-
-
+    #endregion
   }
 }

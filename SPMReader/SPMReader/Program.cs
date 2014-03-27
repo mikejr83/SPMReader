@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SPMReader.Convertable;
 using SPMReader.Readers;
+using SPMReader.Writers;
 
 namespace SPMReader
 {
@@ -24,7 +26,7 @@ Usage: SPMReader.exe <filename>
 
       reader.Read();
 
-      object doc = ((DX18)(reader)).ExportXDocument();
+      object doc = ((SPMReader.Readers.Spektrum.DX18)(reader)).ExportXDocument();
 
       string output = null;
       if (doc != null)
@@ -39,8 +41,11 @@ Usage: SPMReader.exe <filename>
       File.WriteAllText(temp, output);
       File.Copy(temp, outputFilename, true);
 
-      Writers.DX18 writer = new Writers.DX18(reader as DX18);
+      Writers.Spektrum.DX18 writer = new Writers.Spektrum.DX18(reader as Readers.Spektrum.DX18);
       string spm = writer.OutputToSPMFormat();
+
+      ConversionWriter convertsion = new ConversionWriter(reader as IConvertableReader);
+      convertsion.Write(writer as IConvertableWriter);
     }
   }
 }

@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using SPMReader.Helpers;
+using SPMReader.Readers;
+using SPMReader.Convertable;
 
-namespace SPMReader.Readers
+namespace SPMReader.Readers.Spektrum
 {
-  public class DX18 : Reader
+  public class DX18 : Reader, IConvertableReader
   {
     XDocument _ReadFile = null;
-    XSD.DX18.SpektrumModel _Model = null;
+   Models.Spektrum.DX18.SpektrumModel _Model = null;
 
     public DX18(string fileContents)
       : base(fileContents)
@@ -140,7 +142,7 @@ namespace SPMReader.Readers
 
       try
       {
-        this._Model = SerializationHelper<XSD.DX18.SpektrumModel>.DeserializeFromParse(doc.ToString());
+        this._Model = SerializationHelper<Models.Spektrum.DX18.SpektrumModel>.DeserializeFromParse(doc.ToString());
       }
       catch (Exception e)
       {
@@ -154,5 +156,14 @@ namespace SPMReader.Readers
     {
       return new XDocument(this._ReadFile);
     }
+
+    #region IConvertableReader Members
+
+    public IConvertableModel LoadConvertableModel()
+    {
+      return this._Model as IConvertableModel;
+    }
+
+    #endregion
   }
 }
