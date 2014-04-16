@@ -1,6 +1,10 @@
 *.suo
 *.user
+*.userprefs
 /SPMReader/SPMReader/bin
 /SPMReader/SPMReader/obj
+/SPMReaderLinuxConsole/SPMReaderLinuxConsole/bin
+
+*~
 
 *.vspscc
