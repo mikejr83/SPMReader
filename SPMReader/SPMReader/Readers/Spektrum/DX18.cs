@@ -11,7 +11,7 @@ using SPMReader.Convertable;
 
 namespace SPMReader.Readers.Spektrum
 {
-  public class DX18 : Reader, IConvertableReader
+  public class DX18 : Spektrum, IConvertableReader
   {
     XDocument _ReadFile = null;
     Models.Spektrum.DX18.SpektrumModel _Model = null;
@@ -21,8 +21,8 @@ namespace SPMReader.Readers.Spektrum
       get { return "Spektrum DX18"; }
     }
 
-    public DX18(string fileContents)
-      : base(fileContents)
+    public DX18(string generator, string fileContents)
+      : base(generator, fileContents)
     {
 
     }
@@ -32,114 +32,28 @@ namespace SPMReader.Readers.Spektrum
       string[] lines = this.FileContents.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
       XElement currentNode = null;
-      XDocument doc = new XDocument();
-      XNamespace ns = "urn:Spektrum/DX18.xsd";
-      doc.Add(new XElement(ns + "SPM"));
+      XElement modelDescription = null;
+      XDocument doc = this.CreateXDocument(out modelDescription);
       currentNode = doc.Root;
-
-      XElement modelDescription = new XElement(ns + "ModelDescription");
-      modelDescription.SetAttributeValue("EOFMarkerText", "*EOF*");
-      modelDescription.SetAttributeValue("NewLineMarker", "\r");
-      doc.Root.Add(modelDescription);
-
-      Regex xmlTagTypeFinder = new Regex("<.*>");
-      Regex bracketXmlTagTypeFinder = new Regex(@"\[.*]");
 
       bool foundEOF = false;
       string postfixText = null;
 
       foreach (string line in lines)
       {
-        if (line.Equals("*EOF*", StringComparison.OrdinalIgnoreCase))
-        {
-          foundEOF = true;
-          continue;
-        }
+        if (!foundEOF)
+          foundEOF = this.DefaultHandleLine(line, ref currentNode);
 
         if (foundEOF)
         {
           postfixText += line;
           continue;
         }
-
-        if (xmlTagTypeFinder.IsMatch(line) || bracketXmlTagTypeFinder.IsMatch(line))
-        {
-          if (line[1] == '/')
-          {
-            currentNode = currentNode.Parent;
-          }
-          else
-          {
-            XElement element = new XElement(ns + line.Substring(1, line.Length - 2));
-            currentNode.Add(element);
-            currentNode = element;
-          }
-        }
-        else
-        {
-          string theLine = line, attrPrefixValue = null, attrSeparatorStyle = null;
-          bool isString = false, valueHasPreceedingSpace = false;
-
-          theLine = theLine.Trim();
-          if (theLine.StartsWith("; "))
-          {
-            attrPrefixValue = "; ";
-            theLine = theLine.Substring(2).Trim();
-          }
-          else if (theLine.StartsWith("*"))
-          {
-            attrPrefixValue = "*";
-            theLine = theLine.Substring(1).Trim();
-          }
-
-
-          string[] split = null;
-
-          if (theLine.Contains('='))
-          {
-            attrSeparatorStyle = "=";
-            split = theLine.Split(new char[] { '=' });
-          }
-          else
-          {
-            attrSeparatorStyle = ":";
-            split = theLine.Split(new char[] { ':' });
-          }
-
-          isString = split[1].Contains("\"");
-          valueHasPreceedingSpace = split[1].StartsWith(" ");
-
-          string value = null;
-
-          if (isString)
-            value = split[1].Replace("\"", string.Empty);
-          else
-            value = split[1].Replace("\"", string.Empty).Trim();
-
-          XAttribute attr = new XAttribute(split[0].Trim(), value);
-          currentNode.Add(attr);
-
-          XElement dataDescElem = currentNode.Element(ns + "AttributeDescriptors");
-          if (dataDescElem == null)
-          {
-            dataDescElem = new XElement(ns + "AttributeDescriptors");
-            currentNode.Add(dataDescElem);
-          }
-
-          XElement descElem = new XElement(ns + "Descriptor");
-          descElem.SetAttributeValue("PrefixValue", attrPrefixValue);
-          descElem.SetAttributeValue("SeparatorStyle", attrSeparatorStyle);
-          descElem.SetAttributeValue("IsString", isString);
-          descElem.SetAttributeValue("AttributeName", split[0].Trim());
-          descElem.SetAttributeValue("ValueHasPreceedingSpace", valueHasPreceedingSpace);
-
-          dataDescElem.Add(descElem);
-        }
       }
 
       if (!string.IsNullOrEmpty(postfixText))
       {
-        XElement postfixModelText = new XElement(ns + "PostfixModelText");
+        XElement postfixModelText = new XElement(this.ModelDescNamespace + "PostfixModelText");
         postfixModelText.Value = String.Join(" ", UTF8Encoding.UTF8.GetBytes(postfixText));
         //postfixModelText.SetValue(postfixText);
         modelDescription.Add(postfixModelText);
@@ -157,7 +71,7 @@ namespace SPMReader.Readers.Spektrum
       this._ReadFile = doc;
     }
 
-    public XDocument ExportXDocument()
+    public override XDocument ExportXDocument()
     {
       return new XDocument(this._ReadFile);
     }

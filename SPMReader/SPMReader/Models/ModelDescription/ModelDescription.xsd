@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ModelDescription"
+           targetNamespace="urn:SPMReader/ModelDescription.xsd"
+           elementFormDefault="qualified"
+           xmlns="urn:SPMReader/ModelDescription.xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="Model" type="Model" />
+
+  <xs:element name="ComplexType" type="ComplexType" />
+  
+  <xs:complexType abstract="true" name="Model">
+    <xs:sequence>
+      <xs:element name="ModelDescription" minOccurs="1" maxOccurs="1" type="ModelDescription" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType abstract="true" name="ComplexType">
+    <xs:sequence>
+      <xs:element name="AttributeDescriptors" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Descriptor" minOccurs="1" maxOccurs="unbounded" type="Descriptor" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ModelDescription">
+    <xs:sequence>
+      <xs:element name="PrefixModelText" minOccurs="0" maxOccurs="1" type="xs:string" />
+      <xs:element name="PostfixModelText" minOccurs="0" maxOccurs="1" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="EOFMarkerText" type="xs:string" use="optional" default="*EOF*" />
+    <xs:attribute name="NewLineMarker" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="Descriptor">
+    <xs:attribute name="SeparatorStyle" type="xs:string" use="required" />
+    <xs:attribute name="IsString" type="xs:boolean" use="required" />
+    <xs:attribute name="AttributeName" type="xs:string" use="required" />
+    <xs:attribute name="ValueHasPreceedingSpace" type="xs:boolean" use="required" />
+    <xs:attribute name="PrefixValue" type="xs:string" use="optional" />
+  </xs:complexType>
+</xs:schema>

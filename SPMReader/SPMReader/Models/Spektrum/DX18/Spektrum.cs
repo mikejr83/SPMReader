@@ -539,18 +539,6 @@ namespace SPMReader.Models.Spektrum.DX18 {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(FlightModeName))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ChecklistItem))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Preflight))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Camber))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Differential))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(AileronFlapsMixing))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(AileronRudderAileronFlapItem))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(AileronRudderMixing))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ElevatorFlapItem))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ElevatorFlapMxing))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(FlapElevatorMixing))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SailPlaneInformation))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TelemetryModule))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FlightLog))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Telemetry))]
@@ -588,903 +576,6 @@ namespace SPMReader.Models.Spektrum.DX18 {
             }
             set {
                 this.attributeDescriptorsField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:SPMReader/Spektrum/DX18.xsd")]
-    public partial class FlightModeName : ComplexType {
-        
-        private string indexField;
-        
-        private string displayField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string Index {
-            get {
-                return this.indexField;
-            }
-            set {
-                this.indexField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string display {
-            get {
-                return this.displayField;
-            }
-            set {
-                this.displayField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:SPMReader/Spektrum/DX18.xsd")]
-    public partial class ChecklistItem : ComplexType {
-        
-        private string indexField;
-        
-        private string modeField;
-        
-        private string displayField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string Index {
-            get {
-                return this.indexField;
-            }
-            set {
-                this.indexField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Mode {
-            get {
-                return this.modeField;
-            }
-            set {
-                this.modeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string display {
-            get {
-                return this.displayField;
-            }
-            set {
-                this.displayField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:SPMReader/Spektrum/DX18.xsd")]
-    public partial class Preflight : ComplexType {
-        
-        private ChecklistItem[] checklistField;
-        
-        private string modeField;
-        
-        private string rfField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("Checklist")]
-        public ChecklistItem[] Checklist {
-            get {
-                return this.checklistField;
-            }
-            set {
-                this.checklistField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Mode {
-            get {
-                return this.modeField;
-            }
-            set {
-                this.modeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string RF {
-            get {
-                return this.rfField;
-            }
-            set {
-                this.rfField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:SPMReader/Spektrum/DX18.xsd")]
-    public partial class Camber : ComplexType {
-        
-        private ElevatorFlapItem[] efItemField;
-        
-        private string conditionIDField;
-        
-        private string activePositionsField;
-        
-        private string mixNameField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("efItem")]
-        public ElevatorFlapItem[] efItem {
-            get {
-                return this.efItemField;
-            }
-            set {
-                this.efItemField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string conditionID {
-            get {
-                return this.conditionIDField;
-            }
-            set {
-                this.conditionIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string activePositions {
-            get {
-                return this.activePositionsField;
-            }
-            set {
-                this.activePositionsField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string mixName {
-            get {
-                return this.mixNameField;
-            }
-            set {
-                this.mixNameField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:SPMReader/Spektrum/DX18.xsd")]
-    public partial class ElevatorFlapItem : ComplexType {
-        
-        private string indexField;
-        
-        private string offsetField;
-        
-        private string flapLeftField;
-        
-        private string flapRightField;
-        
-        private string flonLeftField;
-        
-        private string flonRightField;
-        
-        private string tipLeftField;
-        
-        private string tipRightField;
-        
-        private string elevatorField;
-        
-        private string speedField;
-        
-        private string analogIDField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string Index {
-            get {
-                return this.indexField;
-            }
-            set {
-                this.indexField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string offset {
-            get {
-                return this.offsetField;
-            }
-            set {
-                this.offsetField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string flapLeft {
-            get {
-                return this.flapLeftField;
-            }
-            set {
-                this.flapLeftField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string flapRight {
-            get {
-                return this.flapRightField;
-            }
-            set {
-                this.flapRightField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string flonLeft {
-            get {
-                return this.flonLeftField;
-            }
-            set {
-                this.flonLeftField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string flonRight {
-            get {
-                return this.flonRightField;
-            }
-            set {
-                this.flonRightField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string tipLeft {
-            get {
-                return this.tipLeftField;
-            }
-            set {
-                this.tipLeftField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string tipRight {
-            get {
-                return this.tipRightField;
-            }
-            set {
-                this.tipRightField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string elevator {
-            get {
-                return this.elevatorField;
-            }
-            set {
-                this.elevatorField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string speed {
-            get {
-                return this.speedField;
-            }
-            set {
-                this.speedField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string analogID {
-            get {
-                return this.analogIDField;
-            }
-            set {
-                this.analogIDField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:SPMReader/Spektrum/DX18.xsd")]
-    public partial class Differential : ComplexType {
-        
-        private string conditionIDField;
-        
-        private string rateField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string conditionID {
-            get {
-                return this.conditionIDField;
-            }
-            set {
-                this.conditionIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string rate {
-            get {
-                return this.rateField;
-            }
-            set {
-                this.rateField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:SPMReader/Spektrum/DX18.xsd")]
-    public partial class AileronFlapsMixing : ComplexType {
-        
-        private AileronRudderAileronFlapItem[] arafItemField;
-        
-        private string conditionIDField;
-        
-        private string mixNameField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("arafItem")]
-        public AileronRudderAileronFlapItem[] arafItem {
-            get {
-                return this.arafItemField;
-            }
-            set {
-                this.arafItemField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string conditionID {
-            get {
-                return this.conditionIDField;
-            }
-            set {
-                this.conditionIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string mixName {
-            get {
-                return this.mixNameField;
-            }
-            set {
-                this.mixNameField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:SPMReader/Spektrum/DX18.xsd")]
-    public partial class AileronRudderAileronFlapItem : ComplexType {
-        
-        private string indexField;
-        
-        private string leftField;
-        
-        private string rightField;
-        
-        private string left1Field;
-        
-        private string right1Field;
-        
-        private string left2Field;
-        
-        private string right2Field;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string Index {
-            get {
-                return this.indexField;
-            }
-            set {
-                this.indexField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string left {
-            get {
-                return this.leftField;
-            }
-            set {
-                this.leftField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string right {
-            get {
-                return this.rightField;
-            }
-            set {
-                this.rightField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string left1 {
-            get {
-                return this.left1Field;
-            }
-            set {
-                this.left1Field = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string right1 {
-            get {
-                return this.right1Field;
-            }
-            set {
-                this.right1Field = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string left2 {
-            get {
-                return this.left2Field;
-            }
-            set {
-                this.left2Field = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string right2 {
-            get {
-                return this.right2Field;
-            }
-            set {
-                this.right2Field = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:SPMReader/Spektrum/DX18.xsd")]
-    public partial class AileronRudderMixing : ComplexType {
-        
-        private AileronRudderAileronFlapItem[] arafItemField;
-        
-        private string conditionIDField;
-        
-        private string mixNameField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("arafItem")]
-        public AileronRudderAileronFlapItem[] arafItem {
-            get {
-                return this.arafItemField;
-            }
-            set {
-                this.arafItemField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string conditionID {
-            get {
-                return this.conditionIDField;
-            }
-            set {
-                this.conditionIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string mixName {
-            get {
-                return this.mixNameField;
-            }
-            set {
-                this.mixNameField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:SPMReader/Spektrum/DX18.xsd")]
-    public partial class ElevatorFlapMxing : ComplexType {
-        
-        private ElevatorFlapItem[] efItemField;
-        
-        private string conditionIDField;
-        
-        private string activePositionsField;
-        
-        private string mixNameField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("efItem")]
-        public ElevatorFlapItem[] efItem {
-            get {
-                return this.efItemField;
-            }
-            set {
-                this.efItemField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string conditionID {
-            get {
-                return this.conditionIDField;
-            }
-            set {
-                this.conditionIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string activePositions {
-            get {
-                return this.activePositionsField;
-            }
-            set {
-                this.activePositionsField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string mixName {
-            get {
-                return this.mixNameField;
-            }
-            set {
-                this.mixNameField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:SPMReader/Spektrum/DX18.xsd")]
-    public partial class FlapElevatorMixing : ComplexType {
-        
-        private CurveData[] curvedataField;
-        
-        private string analogIDField;
-        
-        private string conditionIDField;
-        
-        private string trimIDField;
-        
-        private string activeMaskField;
-        
-        private string delayField;
-        
-        private string mixNameField;
-        
-        private string assignedCurveField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("Curvedata")]
-        public CurveData[] Curvedata {
-            get {
-                return this.curvedataField;
-            }
-            set {
-                this.curvedataField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string analogID {
-            get {
-                return this.analogIDField;
-            }
-            set {
-                this.analogIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string conditionID {
-            get {
-                return this.conditionIDField;
-            }
-            set {
-                this.conditionIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string trimID {
-            get {
-                return this.trimIDField;
-            }
-            set {
-                this.trimIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string activeMask {
-            get {
-                return this.activeMaskField;
-            }
-            set {
-                this.activeMaskField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string delay {
-            get {
-                return this.delayField;
-            }
-            set {
-                this.delayField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string mixName {
-            get {
-                return this.mixNameField;
-            }
-            set {
-                this.mixNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string assignedCurve {
-            get {
-                return this.assignedCurveField;
-            }
-            set {
-                this.assignedCurveField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:SPMReader/Spektrum/Spektrum.xsd")]
-    public partial class CurveData : ComplexType {
-        
-        private string indexField;
-        
-        private string pointsField;
-        
-        private string expoField;
-        
-        private string trimActiveField;
-        
-        private string curvedField;
-        
-        private string xField;
-        
-        private string yField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string Index {
-            get {
-                return this.indexField;
-            }
-            set {
-                this.indexField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string points {
-            get {
-                return this.pointsField;
-            }
-            set {
-                this.pointsField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Expo {
-            get {
-                return this.expoField;
-            }
-            set {
-                this.expoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string trimActive {
-            get {
-                return this.trimActiveField;
-            }
-            set {
-                this.trimActiveField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string curved {
-            get {
-                return this.curvedField;
-            }
-            set {
-                this.curvedField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string X {
-            get {
-                return this.xField;
-            }
-            set {
-                this.xField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Y {
-            get {
-                return this.yField;
-            }
-            set {
-                this.yField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:SPMReader/Spektrum/DX18.xsd")]
-    public partial class SailPlaneInformation : ComplexType {
-        
-        private string wingField;
-        
-        private string tailField;
-        
-        private string motorField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Wing {
-            get {
-                return this.wingField;
-            }
-            set {
-                this.wingField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Tail {
-            get {
-                return this.tailField;
-            }
-            set {
-                this.tailField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Motor {
-            get {
-                return this.motorField;
-            }
-            set {
-                this.motorField = value;
             }
         }
     }
@@ -2331,6 +1422,106 @@ namespace SPMReader.Models.Spektrum.DX18 {
             }
             set {
                 this.absLimitLowField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:SPMReader/Spektrum/Spektrum.xsd")]
+    public partial class CurveData : ComplexType {
+        
+        private string indexField;
+        
+        private string pointsField;
+        
+        private string expoField;
+        
+        private string trimActiveField;
+        
+        private string curvedField;
+        
+        private string xField;
+        
+        private string yField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+        public string Index {
+            get {
+                return this.indexField;
+            }
+            set {
+                this.indexField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+        public string points {
+            get {
+                return this.pointsField;
+            }
+            set {
+                this.pointsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Expo {
+            get {
+                return this.expoField;
+            }
+            set {
+                this.expoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string trimActive {
+            get {
+                return this.trimActiveField;
+            }
+            set {
+                this.trimActiveField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string curved {
+            get {
+                return this.curvedField;
+            }
+            set {
+                this.curvedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string X {
+            get {
+                return this.xField;
+            }
+            set {
+                this.xField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Y {
+            get {
+                return this.yField;
+            }
+            set {
+                this.yField = value;
             }
         }
     }

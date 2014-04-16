@@ -58,9 +58,9 @@ Usage: SPMReader.exe <filename>
        * TODO: Need to not use the DX18 here.
        */
 
-      
 
-      object doc = ((SPMReader.Readers.Spektrum.DX18)(reader)).ExportXDocument();
+
+      object doc = ((SPMReader.Readers.Spektrum.Spektrum)(reader)).ExportXDocument();
 
       string output = null;
       if (doc != null)
@@ -75,11 +75,14 @@ Usage: SPMReader.exe <filename>
       File.WriteAllText(temp, output);
       File.Copy(temp, outputFilename, true);
 
-      Writers.Spektrum.DX18 writer = new Writers.Spektrum.DX18(reader as Readers.Spektrum.DX18);
-      string spm = writer.OutputToSPMFormat();
+      if (reader is Writers.Spektrum.DX18)
+      {
+        Writers.Spektrum.DX18 writer = new Writers.Spektrum.DX18(reader as Readers.Spektrum.DX18);
+        string spm = writer.OutputToSPMFormat();
 
-      ConversionWriter convertsion = new ConversionWriter(reader as IConvertableReader);
-      convertsion.Write(writer as IConvertableWriter);
+        ConversionWriter convertsion = new ConversionWriter(reader as IConvertableReader);
+        convertsion.Write(writer as IConvertableWriter);
+      }
     }
   }
 }

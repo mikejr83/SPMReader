@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DX18"
+           targetNamespace="urn:SPMReader/Spektrum/Spektrum.xsd"
+           elementFormDefault="qualified"
+           xmlns="urn:SPMReader/Spektrum/Spektrum.xsd"
+           xmlns:dx18="urn:SPMReader/Spektrum/DX18.xsd"
+           xmlns:desc="urn:SPMReader/ModelDescription.xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- /n:SPMReader.Models.Spektrum.DX18 /c ..\..\ModelDescription\ModelDescription.xsd ..\Spektrum.xsd $(ItemPath)  -->
+  <xs:import namespace="urn:SPMReader/ModelDescription.xsd" schemaLocation="..\..\ModelDescription\ModelDescription.xsd" />
+  <xs:import namespace="urn:SPMReader/Spektrum/DX18.xsd" schemaLocation="DX18.xsd" />
+  <xs:include schemaLocation="..\Spektrum.xsd" />
+
+  <xs:redefine schemaLocation="../Spektrum.xsd">
+    <xs:complexType name="SpektrumModel">
+      <xs:complexContent>
+        <xs:sequence>
+          <xs:element name="Spektrum" minOccurs="1" maxOccurs="1" type="SpektrumInformation" />
+
+          <xs:choice>
+            <xs:element name="Sail" maxOccurs="1" type="dx18:SailPlaneInformation" />
+            <xs:element name="Acro" maxOccurs="1" />
+            <xs:element name="Heli" maxOccurs="1" />
+          </xs:choice>
+
+          <xs:element name="FlpEleMix" minOccurs="0" maxOccurs="1" type="dx18:FlapElevatorMixing" />
+          <xs:element name="EF-Mix" minOccurs="0" maxOccurs="1" type="dx18:ElevatorFlapMxing" />
+          <xs:element name="AR-Mix-S" minOccurs="0" maxOccurs="1" type="dx18:AileronRudderMixing" />
+          <xs:element name="AF-Mix-S" minOccurs="0" maxOccurs="1" type="dx18:AileronFlapsMixing" />
+
+          <xs:element name="Diff-Ail" minOccurs="0" maxOccurs="1" type="dx18:Differential" />
+          <xs:element name="Diff-Flap" minOccurs="0" maxOccurs="1" type="dx18:Differential" />
+          <xs:element name="Diff-Tip" minOccurs="0" maxOccurs="1" type="dx18:Differential" />
+          <xs:element name="Diff-Rud" minOccurs="0" maxOccurs="1" type="dx18:Differential" />
+
+          <xs:element name="CamberMix" minOccurs="0" maxOccurs="1" type="dx18:Camber" />
+          <xs:element name="CamberPreset" minOccurs="0" maxOccurs="1" type="dx18:Camber" />
+
+          <xs:element name="Config" minOccurs="1" maxOccurs="1" type="Configuration" />
+
+          <xs:element name="Trainer" minOccurs="1" maxOccurs="1" type="Trainer" />
+
+          <xs:element name="FMode" minOccurs="1" maxOccurs="1" type="FlightMode" />
+
+          <xs:element name="Analog" minOccurs="1" maxOccurs="unbounded" type="Analog" />
+
+          <xs:element name="Special" minOccurs="0" maxOccurs="unbounded" type="IndexToSourceID" />
+
+          <xs:element name="SoftSw"  minOccurs="0" maxOccurs="unbounded" type="IndexToSourceID" />
+
+          <xs:element name="TrimID" minOccurs="0" maxOccurs="unbounded" type="IndexToSourceID" />
+
+          <xs:element name="Digital" minOccurs="0" maxOccurs="unbounded" type="Digital" />
+
+          <xs:element name="Trim" minOccurs="0" maxOccurs="unbounded" type="Trim" />
+
+          <xs:element name="Servo" minOccurs="0" maxOccurs="unbounded" type="Servo" />
+
+          <xs:element name="DR_Expo"  minOccurs="0" maxOccurs="unbounded" type="DualRateExpo" />
+
+          <xs:element name="P-Mix"  minOccurs="0" maxOccurs="unbounded" type="PMix" />
+
+          <xs:element name="ThroCut" minOccurs="1" maxOccurs="1" type="ThrottleCut" />
+          <xs:element name="ThroCurve" minOccurs="1" maxOccurs="1" type="ThrottleCurve"  />
+
+          <xs:element name="Warning" minOccurs="1" maxOccurs="1" type="Warning" />
+
+          <xs:element name="Timer" minOccurs="0" maxOccurs="unbounded" type="Timer" />
+
+          <xs:element name="Telemetry" minOccurs="1" maxOccurs="1" type="Telemetry" />
+
+          <xs:element name="Preflight" minOccurs="1" maxOccurs="1" type="dx18:Preflight" />
+
+          <xs:element name="FMode_Names" minOccurs="1" maxOccurs="1" type="dx18:FlightModeNameCollection" />
+        </xs:sequence>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:redefine>
+
+  <xs:element name="SPM" type="SpektrumModel" />
+</xs:schema>

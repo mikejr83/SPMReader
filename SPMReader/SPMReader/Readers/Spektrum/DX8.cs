@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using SPMReader.Convertable;
 
 namespace SPMReader.Readers.Spektrum
 {
-  public class DX8 : Reader, IConvertableReader
+  public class DX8 : Spektrum, IConvertableReader
   {
+    XDocument _ReadFile = null;
+
     public override string ModelName
     {
       get { return "Spektrum DX8"; }
     }
 
-    public DX8(string fileContents)
-      : base(fileContents)
+    public DX8(string generator, string fileContents)
+      : base(generator, fileContents)
     {
 
     }
@@ -31,7 +34,44 @@ namespace SPMReader.Readers.Spektrum
 
     protected override void ReadContents()
     {
-      throw new NotImplementedException();
+      string[] lines = this.FileContents.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+      XElement currentNode = null;
+      XElement modelDescription = null;
+      XDocument doc = this.CreateXDocument(out modelDescription);
+      currentNode = doc.Root;
+
+      bool foundEOF = false;
+      string postfixText = null;
+
+      foreach (string line in lines)
+      {
+        if (!foundEOF)
+          foundEOF = this.DefaultHandleLine(line, ref currentNode);
+
+        if (foundEOF)
+        {
+          postfixText += line;
+          continue;
+        }
+      }
+
+      if (!string.IsNullOrEmpty(postfixText))
+      {
+        XElement postfixModelText = new XElement(this.Namespace + "PostfixModelText");
+        postfixModelText.Value = String.Join(" ", UTF8Encoding.UTF8.GetBytes(postfixText));
+        //postfixModelText.SetValue(postfixText);
+        modelDescription.Add(postfixModelText);
+
+
+      }
+
+      this._ReadFile = doc;
+    }
+
+    public override XDocument ExportXDocument()
+    {
+      return new XDocument(this._ReadFile);
     }
   }
 }

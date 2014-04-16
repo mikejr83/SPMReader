@@ -49,12 +49,16 @@
     <Compile Include="Convertable\IConvertableReader.cs" />
     <Compile Include="Convertable\IConvertableWriter.cs" />
     <Compile Include="Helpers\SerializationHelper.cs" />
+    <Compile Include="Models\ModelDescription\ModelDescription.cs">
+      <DependentUpon>ModelDescription.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Models\Spektrum\DX18\SpektrumModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Readers\Spektrum\DX18.cs" />
     <Compile Include="Readers\Reader.cs" />
     <Compile Include="Readers\Spektrum\DX8.cs" />
+    <Compile Include="Readers\Spektrum\Spektrum.cs" />
     <Compile Include="SPMReaderFactory.cs" />
     <Compile Include="Writers\Spektrum\DX18.cs" />
     <Compile Include="Writers\ISPMWriter.cs" />
@@ -65,9 +69,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Models\ModelDescription\ModelDescription.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Models\Spektrum\DX18\DX18.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Models\Spektrum\DX18\Spektrum.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Models\Spektrum\Spektrum.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Spektrum\DX8\" />
   </ItemGroup>
   <Import Condition="Exists('$(MSBuildToolsPath)\Microsoft.CSharp.targets')" Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

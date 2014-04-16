@@ -29,14 +29,15 @@ namespace SPMReader
       }
 
       Reader reader = null;
-      switch (generatorLine.Substring(11, generatorLine.Length - 12))
+      string generator = generatorLine.Substring(11, generatorLine.Length - 12);
+      switch (generator)
       {
         case "DX18":
-          reader = new DX18(string.Join(Environment.NewLine, lines.ToArray()));
+          reader = new DX18(generator, string.Join(Environment.NewLine, lines.ToArray()));
           break;
 
         case "DX8":
-          reader = new DX8(string.Join(Environment.NewLine, lines.ToArray()));
+          reader = new DX8(generator, string.Join(Environment.NewLine, lines.ToArray()));
           break;
       }
 
