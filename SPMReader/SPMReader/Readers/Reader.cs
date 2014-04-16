@@ -8,6 +8,7 @@ namespace SPMReader.Readers
 {
   public abstract class Reader
   {
+    public abstract string ModelName { get; }
     protected string FileContents { get; private set; }
 
     public void Read()

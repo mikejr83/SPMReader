@@ -34,6 +34,10 @@ namespace SPMReader
         case "DX18":
           reader = new DX18(string.Join(Environment.NewLine, lines.ToArray()));
           break;
+
+        case "DX8":
+          reader = new DX8(string.Join(Environment.NewLine, lines.ToArray()));
+          break;
       }
 
       return reader;
