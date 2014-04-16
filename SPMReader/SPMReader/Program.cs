@@ -26,6 +26,10 @@ Usage: SPMReader.exe <filename>
 
       reader.Read();
 
+      /*
+       * TODO: Need to not use the DX18 here.
+       */
+
       object doc = ((SPMReader.Readers.Spektrum.DX18)(reader)).ExportXDocument();
 
       string output = null;
