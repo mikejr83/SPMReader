@@ -1,7 +1,13 @@
 *.suo
 *.user
-/SPMReader/SPMReader/bin
-/SPMReader/SPMReader/obj
+*.userprefs
+/SPMReader/*/bin
+/SPMReader/*/obj
+/SPMReaderLinuxConsole/SPMReaderLinuxConsole/bin
+
+*~
+
+*.userprefs
 
 *.userprefs
 

@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPMReader", "SPMReader\SPMReader.csproj", "{2F311D2B-53FA-45B2-A8DD-F25300C471A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPMReaderTester", "SPMReaderTester\SPMReaderTester.csproj", "{46836C9C-1155-4544-A343-255150039A0C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F311D2B-53FA-45B2-A8DD-F25300C471A8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2F311D2B-53FA-45B2-A8DD-F25300C471A8}.Debug|x86.Build.0 = Debug|Any CPU
+		{2F311D2B-53FA-45B2-A8DD-F25300C471A8}.Release|x86.ActiveCfg = Release|Any CPU
+		{2F311D2B-53FA-45B2-A8DD-F25300C471A8}.Release|x86.Build.0 = Release|Any CPU
+		{46836C9C-1155-4544-A343-255150039A0C}.Debug|x86.ActiveCfg = Debug|x86
+		{46836C9C-1155-4544-A343-255150039A0C}.Debug|x86.Build.0 = Debug|x86
+		{46836C9C-1155-4544-A343-255150039A0C}.Release|x86.ActiveCfg = Release|x86
+		{46836C9C-1155-4544-A343-255150039A0C}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = SPMReader\SPMReader.csproj
+	EndGlobalSection
+EndGlobal

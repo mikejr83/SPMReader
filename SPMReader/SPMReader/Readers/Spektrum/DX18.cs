@@ -14,7 +14,12 @@ namespace SPMReader.Readers.Spektrum
   public class DX18 : Reader, IConvertableReader
   {
     XDocument _ReadFile = null;
-   Models.Spektrum.DX18.SpektrumModel _Model = null;
+    Models.Spektrum.DX18.SpektrumModel _Model = null;
+
+    public override string ModelName
+    {
+      get { return "Spektrum DX18"; }
+    }
 
     public DX18(string fileContents)
       : base(fileContents)
@@ -49,9 +54,9 @@ namespace SPMReader.Readers.Spektrum
         {
           foundEOF = true;
           continue;
-        }          
+        }
 
-        if(foundEOF)
+        if (foundEOF)
         {
           postfixText += line;
           continue;
@@ -76,7 +81,7 @@ namespace SPMReader.Readers.Spektrum
           bool isString = false, valueHasPreceedingSpace = false;
 
           theLine = theLine.Trim();
-          if(theLine.StartsWith("; "))
+          if (theLine.StartsWith("; "))
           {
             attrPrefixValue = "; ";
             theLine = theLine.Substring(2).Trim();
@@ -86,7 +91,7 @@ namespace SPMReader.Readers.Spektrum
             attrPrefixValue = "*";
             theLine = theLine.Substring(1).Trim();
           }
-            
+
 
           string[] split = null;
 
@@ -105,8 +110,8 @@ namespace SPMReader.Readers.Spektrum
           valueHasPreceedingSpace = split[1].StartsWith(" ");
 
           string value = null;
-          
-          if(isString)
+
+          if (isString)
             value = split[1].Replace("\"", string.Empty);
           else
             value = split[1].Replace("\"", string.Empty).Trim();
@@ -115,7 +120,7 @@ namespace SPMReader.Readers.Spektrum
           currentNode.Add(attr);
 
           XElement dataDescElem = currentNode.Element(ns + "AttributeDescriptors");
-          if(dataDescElem == null)
+          if (dataDescElem == null)
           {
             dataDescElem = new XElement(ns + "AttributeDescriptors");
             currentNode.Add(dataDescElem);
@@ -132,7 +137,7 @@ namespace SPMReader.Readers.Spektrum
         }
       }
 
-      if(!string.IsNullOrEmpty(postfixText))
+      if (!string.IsNullOrEmpty(postfixText))
       {
         XElement postfixModelText = new XElement(ns + "PostfixModelText");
         postfixModelText.Value = String.Join(" ", UTF8Encoding.UTF8.GetBytes(postfixText));
