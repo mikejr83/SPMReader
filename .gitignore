@@ -3,4 +3,6 @@
 /SPMReader/SPMReader/bin
 /SPMReader/SPMReader/obj
 
+*.userprefs
+
 *.vspscc
