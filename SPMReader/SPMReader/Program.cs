@@ -14,6 +14,7 @@ namespace SPMReader
   class Program
   {
     const string DEBUG_FLAG = "-Debug";
+    const string WRITE_XML_FLAG = "-WriteXML";
 
     const string USAGE = @"SPEKTRUM SPM File Reader
 ------------------------
@@ -55,26 +56,23 @@ Usage: SPMReader.exe <filename>
         return;
       }
 
-      /*
-       * TODO: Need to not use the DX18 here.
-       */
+      if (args.Contains(WRITE_XML_FLAG))
+      {
+        object doc = ((SPMReader.Readers.Spektrum.Spektrum)(reader)).ExportXDocument();
 
+        string output = null;
+        if (doc != null)
+          output = doc.ToString();
 
+        FileInfo input = new FileInfo(filename);
 
-      object doc = ((SPMReader.Readers.Spektrum.Spektrum)(reader)).ExportXDocument();
+        string outputFilename = filename.ToLowerInvariant().Replace(".spm", ".xml");
 
-      string output = null;
-      if (doc != null)
-        output = doc.ToString();
+        string temp = Path.GetTempFileName();
 
-      FileInfo input = new FileInfo(filename);
-
-      string outputFilename = filename.ToLowerInvariant().Replace(".spm", ".xml");
-      
-      string temp = Path.GetTempFileName();
-
-      File.WriteAllText(temp, output);
-      File.Copy(temp, outputFilename, true);
+        File.WriteAllText(temp, output);
+        File.Copy(temp, outputFilename, true); 
+      }
     }
   }
 }
