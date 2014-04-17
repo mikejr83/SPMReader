@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,10 +50,10 @@
     <Compile Include="Convertable\IConvertableReader.cs" />
     <Compile Include="Convertable\IConvertableWriter.cs" />
     <Compile Include="Helpers\SerializationHelper.cs" />
-    <Compile Include="Models\ModelDescription\ModelDescription.cs">
-      <DependentUpon>ModelDescription.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Models\Spektrum\DX18\SpektrumModel.cs" />
+    <Compile Include="Models\Spektrum\DX8\DX8.cs">
+      <DependentUpon>DX8.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Readers\Spektrum\DX18.cs" />
@@ -78,13 +79,14 @@
     <None Include="Models\Spektrum\DX18\Spektrum.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Models\Spektrum\Spektrum.xsd">
+    <None Include="Models\Spektrum\DX8\DX8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Models\Spektrum\DX8\Spektrum.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Spektrum\DX8\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Condition="Exists('$(MSBuildToolsPath)\Microsoft.CSharp.targets')" Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

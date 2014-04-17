@@ -6,35 +6,54 @@
            xmlns:dx18="urn:SPMReader/Spektrum/DX18.xsd"
            xmlns:desc="urn:SPMReader/ModelDescription.xsd"
            xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <!-- /n:SPMReader.Models.Spektrum.DX18 /c ..\..\ModelDescription\ModelDescription.xsd ..\Spektrum.xsd $(ItemPath)  -->
   <xs:import namespace="urn:SPMReader/ModelDescription.xsd" schemaLocation="..\..\ModelDescription\ModelDescription.xsd" />
   <xs:import namespace="urn:SPMReader/Spektrum/DX18.xsd" schemaLocation="DX18.xsd" />
-  <xs:include schemaLocation="..\Spektrum.xsd" />
 
-  <xs:redefine schemaLocation="../Spektrum.xsd">
-    <xs:complexType name="SpektrumModel">
-      <xs:complexContent>
+  <xs:element name="SPM" type="SpektrumModel" />
+
+  <xs:complexType name="SpektrumModel">
+    <xs:complexContent>
+      <xs:extension base="desc:Model">
         <xs:sequence>
           <xs:element name="Spektrum" minOccurs="1" maxOccurs="1" type="SpektrumInformation" />
 
-          <xs:choice>
-            <xs:element name="Sail" maxOccurs="1" type="dx18:SailPlaneInformation" />
-            <xs:element name="Acro" maxOccurs="1" />
-            <xs:element name="Heli" maxOccurs="1" />
+          <xs:choice minOccurs="1" maxOccurs="1">
+            <xs:sequence>
+              <xs:element name="Sail" maxOccurs="1" minOccurs="1" type="SailPlaneInformation" />
+
+              <xs:element name="FlpEleMix" minOccurs="0" maxOccurs="1" type="FlapElevatorMixing" />
+              <xs:element name="EF-Mix" minOccurs="0" maxOccurs="1" type="ElevatorFlapMixing" />
+              <xs:element name="AR-Mix-S" minOccurs="0" maxOccurs="1" type="AileronRudderMixing" />
+              <xs:element name="AF-Mix-S" minOccurs="0" maxOccurs="1" type="AileronFlapsMixing" />
+
+              <xs:element name="Diff-Ail" minOccurs="0" maxOccurs="1" type="Differential" />
+              <xs:element name="Diff-Flap" minOccurs="0" maxOccurs="1" type="Differential" />
+              <xs:element name="Diff-Tip" minOccurs="0" maxOccurs="1" type="Differential" />
+              <xs:element name="Diff-Rud" minOccurs="0" maxOccurs="1" type="Differential" />
+
+              <xs:element name="CamberMix" minOccurs="0" maxOccurs="1" type="Camber" />
+              <xs:element name="CamberPreset" minOccurs="0" maxOccurs="1" type="Camber" />
+            </xs:sequence>
+            <xs:sequence>
+              <xs:element name="Acro" maxOccurs="1" minOccurs="1" type="Acrobatic" />
+              <xs:element name="EF-Mix" minOccurs="0" maxOccurs="1" type="ElevatorFlapMixing" />
+              <xs:element name="AR-Mix" maxOccurs="1" minOccurs="0" type="AileronRudderMixing" />
+              <xs:element name="FlapSystem" maxOccurs="1" minOccurs="0" type="FlapSystem" />
+              <xs:element name="Differential" maxOccurs="1" minOccurs="1" type="Differential" />
+              <xs:element name="Diff-Rud" minOccurs="0" maxOccurs="1" type="Differential" />
+              <xs:element name="Gyro0" minOccurs="0" maxOccurs="1" type="AircraftGyro" />
+            </xs:sequence>
+            <xs:sequence>
+              <xs:element name="Heli" maxOccurs="1" minOccurs="1"  type="Helicopter" />
+              <xs:element name="PitchCurve" maxOccurs="1" type="PitchCurve" />
+              <xs:element name="RevoCurve" maxOccurs="1" type="RevoCurve" />
+              <xs:element name="Gyro" maxOccurs="1" type="HelicopterGyro" />
+              <xs:element name="Governor" maxOccurs="1" type="Governor" />
+              <xs:element name="C-Mix" maxOccurs="1" type="CMix" />
+              <xs:element name="S-Mix" maxOccurs="1" type="SMix" />
+              <xs:element name="SwashPlate" maxOccurs="1" type="SwashPlate" />
+            </xs:sequence>
           </xs:choice>
-
-          <xs:element name="FlpEleMix" minOccurs="0" maxOccurs="1" type="dx18:FlapElevatorMixing" />
-          <xs:element name="EF-Mix" minOccurs="0" maxOccurs="1" type="dx18:ElevatorFlapMxing" />
-          <xs:element name="AR-Mix-S" minOccurs="0" maxOccurs="1" type="dx18:AileronRudderMixing" />
-          <xs:element name="AF-Mix-S" minOccurs="0" maxOccurs="1" type="dx18:AileronFlapsMixing" />
-
-          <xs:element name="Diff-Ail" minOccurs="0" maxOccurs="1" type="dx18:Differential" />
-          <xs:element name="Diff-Flap" minOccurs="0" maxOccurs="1" type="dx18:Differential" />
-          <xs:element name="Diff-Tip" minOccurs="0" maxOccurs="1" type="dx18:Differential" />
-          <xs:element name="Diff-Rud" minOccurs="0" maxOccurs="1" type="dx18:Differential" />
-
-          <xs:element name="CamberMix" minOccurs="0" maxOccurs="1" type="dx18:Camber" />
-          <xs:element name="CamberPreset" minOccurs="0" maxOccurs="1" type="dx18:Camber" />
 
           <xs:element name="Config" minOccurs="1" maxOccurs="1" type="Configuration" />
 
@@ -42,10 +61,11 @@
 
           <xs:element name="FMode" minOccurs="1" maxOccurs="1" type="FlightMode" />
 
-          <xs:element name="Analog" minOccurs="1" maxOccurs="unbounded" type="Analog" />
-
-          <xs:element name="Special" minOccurs="0" maxOccurs="unbounded" type="IndexToSourceID" />
-
+          <xs:choice minOccurs="1" maxOccurs="unbounded">
+              <xs:element name="Analog" type="Analog" />
+              <xs:element name="Special" type="IndexToSourceID" />
+          </xs:choice>
+          
           <xs:element name="SoftSw"  minOccurs="0" maxOccurs="unbounded" type="IndexToSourceID" />
 
           <xs:element name="TrimID" minOccurs="0" maxOccurs="unbounded" type="IndexToSourceID" />
@@ -69,13 +89,643 @@
 
           <xs:element name="Telemetry" minOccurs="1" maxOccurs="1" type="Telemetry" />
 
-          <xs:element name="Preflight" minOccurs="1" maxOccurs="1" type="dx18:Preflight" />
+          <xs:element name="Preflight" minOccurs="0" maxOccurs="1" type="Preflight" />
 
-          <xs:element name="FMode_Names" minOccurs="1" maxOccurs="1" type="dx18:FlightModeNameCollection" />
+          <xs:element name="FMode_Names" minOccurs="0" maxOccurs="1" type="FlightModeNameCollection" />
         </xs:sequence>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:redefine>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
 
-  <xs:element name="SPM" type="SpektrumModel" />
+  <xs:complexType name="SpektrumInformation">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="Generator" type="xs:string" use="required" />
+        <xs:attribute name="VCode" type="xs:string" use="required" />
+        <xs:attribute name="Originator" type="xs:string" use="required" />
+
+        <xs:attribute name="PosIndex" type="xs:integer" use="required" />
+        <xs:attribute name="PosMaxSail" type="xs:integer" use="optional" />
+        <xs:attribute name="Type" type="xs:string" use="required" />
+
+        <xs:attribute name="curveIndex" type="xs:string" use="required" />
+
+        <xs:attribute name="enabXPLUS" type="xs:string" use="required" />
+        <xs:attribute name="Name" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="CurveData">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="Index" type="xs:integer" use="required" />
+        <xs:attribute name="points" type="xs:integer" use="required" />
+        <xs:attribute name="Expo" type="xs:string" use="required" />
+        <xs:attribute name="trimActive" type="xs:string" use="required" />
+        <xs:attribute name="curved" type="xs:string" use="optional" />
+        <xs:attribute name="X" type="xs:string" use="required" />
+        <xs:attribute name="Y" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Configuration">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="FrameRate" type="xs:string" use="required" />
+        <xs:attribute name="TrimType" type="xs:string" use="required" />
+        <xs:attribute name="trimMode" type="xs:string" default="Normal" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Trainer">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="conditionID" type="xs:integer" use="required" />
+        <xs:attribute name="Type" type="xs:string" use="required" />
+        <xs:attribute name="MOverride" type="xs:string" use="required" />
+        <xs:attribute name="activePositions" type="xs:integer" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlapSystem">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:sequence>
+          <xs:element name="Curvedata" minOccurs="0" maxOccurs="1" type="CurveData" />
+        </xs:sequence>
+        <xs:attribute name="analogID" type="xs:integer" use="optional" />
+        <xs:attribute name="trimID" type="xs:integer" use="optional" />
+        <xs:attribute name="conditionID" type="xs:integer" use="required" />
+        <xs:attribute name="speed" type="xs:integer" use="required" />
+        <xs:attribute name="flapTarget" type="xs:string" use="required" />
+        <xs:attribute name="elevatorTarget" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AileronRudderMixing">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:sequence>
+          <xs:element name="Curvedata" minOccurs="0" maxOccurs="1" type="CurveData" />
+          <xs:element name="arafItem" minOccurs="0" maxOccurs="unbounded" type="AileronRudderAileronFlapItem" />
+        </xs:sequence>
+        <xs:attribute name="analogID" type="xs:integer" use="optional" />
+        <xs:attribute name="trimID" type="xs:integer" use="optional" />
+        <xs:attribute name="outChan" type="xs:integer" use="optional" />
+        <xs:attribute name="conditionID" type="xs:integer" use="required" />
+        <xs:attribute name="mixName" type="xs:string" use="required" />
+        <xs:attribute name="activePositions" type="xs:string" use="optional" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AileronFlapsMixing">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:sequence>
+          <xs:element name="arafItem" minOccurs="0" maxOccurs="unbounded" type="AileronRudderAileronFlapItem" />
+        </xs:sequence>
+        <xs:attribute name="conditionID" type="xs:integer" use="required" />
+        <xs:attribute name="mixName" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AileronRudderAileronFlapItem">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="Index" type="xs:integer" use="required" />
+        <xs:attribute name="left" type="xs:integer" use="required" />
+        <xs:attribute name="right" type="xs:integer" use="required" />
+        <xs:attribute name="left1" type="xs:integer" use="required" />
+        <xs:attribute name="right1" type="xs:integer" use="required" />
+        <xs:attribute name="left2" type="xs:integer" use="required" />
+        <xs:attribute name="right2" type="xs:integer" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+
+  <xs:complexType name="FlightMode">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="switch_a" type="xs:integer" use="required" />
+        <xs:attribute name="switch_b" type="xs:integer" use="required" />
+        <xs:attribute name="switch_c" type="xs:integer" use="optional" />
+        <xs:attribute name="switch_d" type="xs:integer" use="optional" />
+        <xs:attribute name="priority0" type="xs:integer" use="optional" />
+        <xs:attribute name="priority1" type="xs:integer" use="optional" />
+        <xs:attribute name="priority2" type="xs:integer" use="optional" />
+        <xs:attribute name="size" type="xs:integer" use="required" />
+        <xs:attribute name="fmtable" type="xs:string" use="required" />
+        <xs:attribute name="activePositions" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Analog">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="Index" type="xs:integer" use="required" />
+        <xs:attribute name="Pos0" type="xs:integer" use="required" />
+        <xs:attribute name="Pos1" type="xs:integer" use="required" />
+        <xs:attribute name="Pos2" type="xs:integer" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="IndexToSourceID">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="Index" type="xs:integer" use="required" />
+        <xs:attribute name="sourceID" type="xs:integer" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Digital">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="Index" type="xs:integer" use="required" />
+        <xs:attribute name="Pos0" type="xs:integer" use="required" />
+        <xs:attribute name="Pos1" type="xs:integer" use="required" />
+        <xs:attribute name="Pos2" type="xs:integer" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="DualRateExpo">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="Index" type="xs:integer" use="required" />
+        <xs:attribute name="analogID" type="xs:integer" use="required" />
+        <xs:attribute name="conditionID" type="xs:integer" use="required" />
+        <xs:attribute name="activePositions" type="xs:string" use="required" />
+        <xs:attribute name="drHigh" type="xs:string" use="required" />
+        <xs:attribute name="drLow" type="xs:string" use="required" />
+        <xs:attribute name="drHigh1" type="xs:string" use="required" />
+        <xs:attribute name="drLow1" type="xs:string" use="required" />
+        <xs:attribute name="drHigh2" type="xs:string" use="required" />
+        <xs:attribute name="drLow2" type="xs:string" use="required" />
+        <xs:attribute name="expoHigh" type="xs:string" use="required" />
+        <xs:attribute name="assignedCurve" type="xs:string" use="required" />
+        <xs:attribute name="expoLow" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PMix">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:sequence>
+          <xs:element name="Curvedata" minOccurs="0" maxOccurs="unbounded" type="CurveData" />
+        </xs:sequence>
+        <xs:attribute name="Index" type="xs:integer" use="required" />
+        <xs:attribute name="analogID" type="xs:integer" use="required" />
+        <xs:attribute name="conditionID" type="xs:integer" use="required" />
+        <xs:attribute name="trimID" type="xs:integer" use="required" />
+        <xs:attribute name="activePositions" type="xs:string" use="required" />
+        <xs:attribute name="conditionID1" type="xs:integer" use="required" />
+        <xs:attribute name="conditionID2" type="xs:integer" use="required" />
+        <xs:attribute name="activePositions1" type="xs:string" use="required" />
+        <xs:attribute name="activePositions2" type="xs:string" use="required" />
+        <xs:attribute name="relation" type="xs:integer" use="required" />
+        <xs:attribute name="outChan" type="xs:integer" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ThrottleCurve">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:sequence>
+          <xs:element name="Curvedata" minOccurs="0" maxOccurs="unbounded" type="CurveData" />
+        </xs:sequence>
+        <xs:attribute name="analogID" type="xs:integer" use="required" />
+        <xs:attribute name="conditionID" type="xs:integer" use="required" />
+        <xs:attribute name="trimID" type="xs:integer" use="required" />
+        <xs:attribute name="activeMask" type="xs:string" use="required" />
+        <xs:attribute name="delay" type="xs:integer" use="required" />
+        <xs:attribute name="mixName" type="xs:string" use="required" />
+        <xs:attribute name="assignedCurve" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Trim">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="Index" type="xs:integer" use="required" />
+        <xs:attribute name="Pos0" type="xs:integer" use="required" />
+        <xs:attribute name="Pos1" type="xs:integer" use="required" />
+        <xs:attribute name="Pos2" type="xs:integer" use="required" />
+        <xs:attribute name="trimClicks" type="xs:string" use="required" />
+        <xs:attribute name="maxTrimClicks" type="xs:integer" use="required" />
+        <xs:attribute name="trimStepSize" type="xs:integer" use="required" />
+        <xs:attribute name="trimRepeat" type="xs:integer" use="required" />
+        <xs:attribute name="trimNextRepeat" type="xs:integer" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Servo">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:sequence>
+          <xs:element name="Curvedata" minOccurs="0" maxOccurs="unbounded" type="CurveData" />
+        </xs:sequence>
+        <xs:attribute name="Index" type="xs:integer" use="required" />
+        <xs:attribute name="sourceID" type="xs:integer" use="required" />
+        <xs:attribute name="speed" type="xs:integer" use="required" />
+        <xs:attribute name="conditionID" type="xs:integer" use="required" />
+        <xs:attribute name="activePositions" type="xs:string" use="required" />
+        <xs:attribute name="speedDown" type="xs:integer" use="required" />
+        <xs:attribute name="absLimitHigh" type="xs:integer" use="required" />
+        <xs:attribute name="direction" type="xs:string" use="required" />
+        <xs:attribute name="subTrim" type="xs:integer" use="required" />
+        <xs:attribute name="travelLow" type="xs:integer" use="required" />
+        <xs:attribute name="travelHigh" type="xs:integer" use="required" />
+        <xs:attribute name="name" type="xs:string" use="required" />
+        <xs:attribute name="vSource" type="xs:integer" use="required" />
+        <xs:attribute name="absLimitLow" type="xs:integer" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Warning">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="Vibrate" type="xs:string" use="required" />
+        <xs:attribute name="Spoiler" type="xs:string" use="optional" />
+        <xs:attribute name="Throttle" type="xs:string" use="optional" />
+        <xs:attribute name="Thresh" type="xs:integer" use="optional" />
+        <xs:attribute name="FltMode" type="xs:string" use="required" />
+        <xs:attribute name="Flaps" type="xs:string" use="optional" />
+        <xs:attribute name="Gear" type="xs:string" use="required" />
+        <xs:attribute name="Motor" type="xs:string" use="optional" />
+        <xs:attribute name="chanAchan" type="xs:integer" use="required" />
+        <xs:attribute name="chanAtype" type="xs:string" use="required" />
+        <xs:attribute name="chanBchan" type="xs:integer" use="required" />
+        <xs:attribute name="chanBtype" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Timer">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="Index" type="xs:integer" use="required" />
+        <xs:attribute name="Mode" type="xs:string" use="required" />
+        <xs:attribute name="Minutes" type="xs:integer" use="optional" />
+        <xs:attribute name="Seconds" type="xs:integer" use="optional" />
+        <xs:attribute name="oneTime" type="xs:string" use="required" />
+        <xs:attribute name="Audio" type="xs:string" use="required" />
+        <xs:attribute name="Vibrate" type="xs:string" use="required" />
+        <xs:attribute name="StartID" type="xs:integer" use="required" />
+        <xs:attribute name="Event" type="xs:integer" use="required" />
+        <xs:attribute name="Thresh" type="xs:integer" use="required" />
+        <xs:attribute name="activePositions" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Telemetry">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:sequence>
+          <xs:element name="FlightLog" minOccurs="1" maxOccurs="1" type="FlightLog" />
+          <xs:element name="Module" minOccurs="0" maxOccurs="unbounded" type="TelemetryModule" />
+        </xs:sequence>
+        <xs:attribute name="lcdMode" type="xs:integer" use="required" />
+        <xs:attribute name="Screens" type="xs:string" use="required" />
+        <xs:attribute name="StartID" type="xs:integer" use="required" />
+        <xs:attribute name="Event" type="xs:integer" use="required" />
+        <xs:attribute name="Thresh" type="xs:integer" use="required" />
+        <xs:attribute name="oneTime" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightLog">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="F" type="xs:integer" use="required" />
+        <xs:attribute name="H" type="xs:integer" use="required" />
+        <xs:attribute name="A" type="xs:integer" use="required" />
+        <xs:attribute name="B" type="xs:integer" use="required" />
+        <xs:attribute name="R" type="xs:integer" use="required" />
+        <xs:attribute name="L" type="xs:integer" use="required" />
+
+        <xs:attribute name="FrameAlarm" type="xs:string" use="required" />
+        <xs:attribute name="HoldAlarm" type="xs:string" use="required" />
+
+        <xs:attribute name="minRx" type="xs:integer" use="required" />
+        <xs:attribute name="maxRx" type="xs:integer" use="required" />
+
+        <xs:attribute name="RxVoltAlarm" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="TelemetryModule">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="Device" type="xs:string" use="required" />
+
+        <xs:attribute name="minTemp" type="xs:integer" use="optional" />
+        <xs:attribute name="maxTemp" type="xs:integer" use="optional" />
+
+        <xs:attribute name="minVolt" type="xs:integer" use="optional" />
+        <xs:attribute name="maxVolt" type="xs:integer" use="optional" />
+        
+        <xs:attribute name="minAltitude" type="xs:integer" use="optional" />
+        <xs:attribute name="maxAltitude" type="xs:integer" use="optional" />
+        
+        <xs:attribute name="motorPoles" type="xs:integer" use="optional" />
+        <xs:attribute name="gearRatio" type="xs:integer" use="optional" />
+        <xs:attribute name="minRPM" type="xs:integer" use="optional" />
+        <xs:attribute name="maxRPM" type="xs:integer" use="optional" />
+
+        <xs:attribute name="minAlarm" type="xs:integer" use="required" />
+        <xs:attribute name="maxAlarm" type="xs:integer" use="required" />
+        <xs:attribute name="Address" type="xs:integer" use="required" />
+        <xs:attribute name="display" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Acrobatic">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="Wing" type="xs:string" use="required" />
+        <xs:attribute name="Tail" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Helicopter">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="Swash" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PitchCurve">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:sequence>
+          <xs:element name="Curvedata" minOccurs="0" maxOccurs="unbounded" type="CurveData" />
+        </xs:sequence>
+        <xs:attribute name="analogID" type="xs:string" use="required" />
+        <xs:attribute name="conditionID" type="xs:string" use="required" />
+        <xs:attribute name="trimID" type="xs:string" use="required" />
+        <xs:attribute name="activeMask" type="xs:string" use="required" />
+        <xs:attribute name="delay" type="xs:string" use="required" />
+        <xs:attribute name="mixName" type="xs:string" use="required" />
+        <xs:attribute name="assignedCurve" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="RevoCurve">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:sequence>
+          <xs:element name="Curvedata" minOccurs="0" maxOccurs="unbounded" type="CurveData" />
+        </xs:sequence>
+        <xs:attribute name="analogID" type="xs:string" use="required" />
+        <xs:attribute name="conditionID" type="xs:string" use="required" />
+        <xs:attribute name="trimID" type="xs:string" use="required" />
+        <xs:attribute name="activeMask" type="xs:string" use="required" />
+        <xs:attribute name="delay" type="xs:string" use="required" />
+        <xs:attribute name="mixName" type="xs:string" use="required" />
+        <xs:attribute name="assignedCurve" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="HelicopterGyro">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="sourceID" type="xs:string" use="required" />
+        <xs:attribute name="conditionID" type="xs:string" use="required" />
+        <xs:attribute name="trimID" type="xs:string" use="required" />
+        <xs:attribute name="fpct" type="xs:string" use="required" />
+        <xs:attribute name="tailHold" type="xs:string" use="required" />
+        <xs:attribute name="outChan" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AircraftGyro">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:sequence>
+          <xs:element name="Curvedata" minOccurs="0" maxOccurs="5" type="CurveData" />
+        </xs:sequence>
+        <xs:attribute name="sourceID" type="xs:string" use="required" />
+        <xs:attribute name="conditionID" type="xs:string" use="required" />
+        <xs:attribute name="trimID" type="xs:string" use="required" />
+        <xs:attribute name="gyroType" type="xs:string" use="required" />
+        <xs:attribute name="shortA" type="xs:string" use="required" />
+        <xs:attribute name="mixName" type="xs:string" use="required" />
+        <xs:attribute name="assignedCurve" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Governor">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="sourceID" type="xs:string" use="required" />
+        <xs:attribute name="conditionID" type="xs:string" use="required" />
+        <xs:attribute name="trimID" type="xs:string" use="required" />
+        <xs:attribute name="fpct" type="xs:string" use="required" />
+        <xs:attribute name="outChan" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="CMix">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="rateHighAilThr" type="xs:string" use="required" />
+        <xs:attribute name="rateLowAilThr" type="xs:string" use="required" />
+        <xs:attribute name="rateHighEleThr" type="xs:string" use="required" />
+        <xs:attribute name="rateLowEleThr" type="xs:string" use="required" />
+        <xs:attribute name="rateHighRudThr" type="xs:string" use="required" />
+        <xs:attribute name="rateLowRudThr" type="xs:string" use="required" />
+        <xs:attribute name="conditionID" type="xs:string" use="required" />
+        <xs:attribute name="mixName" type="xs:string" use="required" />
+        <xs:attribute name="activePositions" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SMix">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="rateHighAilEle" type="xs:string" use="required" />
+        <xs:attribute name="rateLowAilEle" type="xs:string" use="required" />
+        <xs:attribute name="rateHighEleAil" type="xs:string" use="required" />
+        <xs:attribute name="rateLowEleAil" type="xs:string" use="required" />
+        <xs:attribute name="conditionID" type="xs:string" use="required" />
+        <xs:attribute name="mixName" type="xs:string" use="required" />
+        <xs:attribute name="activePositions" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SwashPlate">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="rateAileron" type="xs:string" use="required" />
+        <xs:attribute name="rateElevator" type="xs:string" use="required" />
+        <xs:attribute name="ratePitch" type="xs:string" use="required" />
+        <xs:attribute name="E-Ring" type="xs:string" use="required" />
+        <xs:attribute name="Expo" type="xs:string" use="required" />
+        <xs:attribute name="rateExpo" type="xs:string" use="required" />
+        <xs:attribute name="eleComp" type="xs:string" use="optional" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Differential">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="conditionID" type="xs:integer" use="required" />
+        <xs:attribute name="rate" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ElevatorFlapMixing">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:sequence>
+          <xs:element name="Curvedata" minOccurs="0" maxOccurs="1" type="CurveData" />
+          <xs:element name="efItem" minOccurs="0" maxOccurs="unbounded" type="ElevatorFlapItem" />
+        </xs:sequence>
+        <xs:attribute name="analogID" type="xs:integer" use="optional" />
+        <xs:attribute name="trimID" type="xs:integer" use="optional" />
+        <xs:attribute name="outChan" type="xs:integer" use="optional" />
+        <xs:attribute name="conditionID" type="xs:integer" use="required" />
+        <xs:attribute name="activePositions" type="xs:string" use="required" />
+        <xs:attribute name="mixName" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlapElevatorMixing">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:sequence>
+          <xs:element name="Curvedata" minOccurs="0" maxOccurs="unbounded" type="CurveData" />
+        </xs:sequence>
+        <xs:attribute name="analogID" type="xs:integer" use="required" />
+        <xs:attribute name="conditionID" type="xs:integer" use="required" />
+        <xs:attribute name="trimID" type="xs:integer" use="required" />
+        <xs:attribute name="activeMask" type="xs:string" use="required" />
+        <xs:attribute name="delay" type="xs:string" use="required" />
+        <xs:attribute name="mixName" type="xs:string" use="required" />
+        <xs:attribute name="assignedCurve" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ElevatorFlapItem">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="Index" type="xs:integer" use="required" />
+        <xs:attribute name="offset" type="xs:integer" use="required" />
+        <xs:attribute name="flapLeft" type="xs:integer" use="required" />
+        <xs:attribute name="flapRight" type="xs:integer" use="required" />
+        <xs:attribute name="flonLeft" type="xs:integer" use="required" />
+        <xs:attribute name="flonRight" type="xs:integer" use="required" />
+        <xs:attribute name="tipLeft" type="xs:integer" use="required" />
+        <xs:attribute name="tipRight" type="xs:integer" use="required" />
+        <xs:attribute name="elevator" type="xs:integer" use="required" />
+        <xs:attribute name="speed" type="xs:integer" use="required" />
+        <xs:attribute name="analogID" type="xs:integer" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ThrottleCut">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="conditionID" type="xs:integer" use="required" />
+        <xs:attribute name="percent" type="xs:integer" use="required" />
+        <xs:attribute name="rampSpeed" type="xs:integer" use="required" />
+        <xs:attribute name="activePositions" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Preflight">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:sequence>
+          <xs:element name="Checklist" minOccurs="0" maxOccurs="7" type="ChecklistItem" />
+        </xs:sequence>
+        <xs:attribute name="Mode" type="xs:string" use="required" />
+        <xs:attribute name="RF" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ChecklistItem">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="Index" type="xs:integer" use="required" />
+        <xs:attribute name="Mode" type="xs:string" use="required" />
+        <xs:attribute name="display" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightModeNameCollection">
+    <xs:sequence>
+      <xs:element name="fmName" minOccurs="0" maxOccurs="10" type="FlightModeName" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightModeName">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="Index" type="xs:integer" use="required" />
+        <xs:attribute name="display" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SailPlaneInformation">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:attribute name="Wing" type="xs:string" use="required" />
+        <xs:attribute name="Tail" type="xs:string" use="required" />
+        <xs:attribute name="Motor" type="xs:string" use="required" />
+        <xs:attribute name="subTypeC" type="xs:string" use="optional" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Camber">
+    <xs:complexContent>
+      <xs:extension base="desc:ComplexType">
+        <xs:sequence>
+          <xs:element name="efItem" minOccurs="0" maxOccurs="unbounded" type="ElevatorFlapItem" />
+        </xs:sequence>
+        <xs:attribute name="conditionID" type="xs:integer" use="required" />
+        <xs:attribute name="activePositions" type="xs:string" use="required" />
+        <xs:attribute name="mixName" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
 </xs:schema>

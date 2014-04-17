@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SPMReader.Convertable;
+using SPMReader.Helpers;
 using SPMReader.Readers;
 using SPMReader.Writers;
 
@@ -74,15 +75,6 @@ Usage: SPMReader.exe <filename>
 
       File.WriteAllText(temp, output);
       File.Copy(temp, outputFilename, true);
-
-      if (reader is Writers.Spektrum.DX18)
-      {
-        Writers.Spektrum.DX18 writer = new Writers.Spektrum.DX18(reader as Readers.Spektrum.DX18);
-        string spm = writer.OutputToSPMFormat();
-
-        ConversionWriter convertsion = new ConversionWriter(reader as IConvertableReader);
-        convertsion.Write(writer as IConvertableWriter);
-      }
     }
   }
 }

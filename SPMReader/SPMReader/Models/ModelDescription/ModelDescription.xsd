@@ -4,10 +4,6 @@
            elementFormDefault="qualified"
            xmlns="urn:SPMReader/ModelDescription.xsd"
            xmlns:xs="http://www.w3.org/2001/XMLSchema">
-
-  <xs:element name="Model" type="Model" />
-
-  <xs:element name="ComplexType" type="ComplexType" />
   
   <xs:complexType abstract="true" name="Model">
     <xs:sequence>

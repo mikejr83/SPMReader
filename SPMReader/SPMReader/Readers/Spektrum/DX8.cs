@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using SPMReader.Convertable;
+using SPMReader.Helpers;
 
 namespace SPMReader.Readers.Spektrum
 {
   public class DX8 : Spektrum, IConvertableReader
   {
     XDocument _ReadFile = null;
+    Models.Spektrum.DX8.SpektrumModel _Model = null;
 
     public override string ModelName
     {
@@ -58,12 +60,19 @@ namespace SPMReader.Readers.Spektrum
 
       if (!string.IsNullOrEmpty(postfixText))
       {
-        XElement postfixModelText = new XElement(this.Namespace + "PostfixModelText");
+        XElement postfixModelText = new XElement(this.ModelDescNamespace + "PostfixModelText");
         postfixModelText.Value = String.Join(" ", UTF8Encoding.UTF8.GetBytes(postfixText));
         //postfixModelText.SetValue(postfixText);
         modelDescription.Add(postfixModelText);
+      }
 
-
+      try
+      {
+        this._Model = SerializationHelper<Models.Spektrum.DX8.SpektrumModel>.DeserializeFromParse(doc.ToString());
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine("Failed to deserialize the DX8 XML to an object structure. " + e.ToString());
       }
 
       this._ReadFile = doc;

@@ -2,7 +2,7 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{46836C9C-1155-4544-A343-255150039A0C}</ProjectGuid>
@@ -11,25 +11,27 @@
     <AssemblyName>SPMReaderTester</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
-    <Externalconsole>true</Externalconsole>
+  <PropertyGroup>
+    <StartupObject>SPMReaderTester.MainClass</StartupObject>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
-    <Externalconsole>true</Externalconsole>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -58,6 +60,68 @@
   <ItemGroup>
     <Content Include="..\..\SPMFiles\DX8\12T-REX7.SPM">
       <Link>SPMFiles\DX8\12T-REX7.SPM</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\SPMFiles\DX18\02Mustang.SPM">
+      <Link>SPMFiles\DX18\02Mustang.SPM</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\SPMFiles\DX18\03mCPx.SPM">
+      <Link>SPMFiles\DX18\03mCPx.SPM</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\SPMFiles\DX18\04Heli.SPM">
+      <Link>SPMFiles\DX18\04Heli.SPM</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\SPMFiles\DX18\05Sail.SPM">
+      <Link>SPMFiles\DX18\05Sail.SPM</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\SPMFiles\DX18\06Orange and Blue.SPM">
+      <Link>SPMFiles\DX18\06Orange and Blue.SPM</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\SPMFiles\DX18\07DX18 Sail 2AL 2FL V3.SPM">
+      <Link>SPMFiles\DX18\07DX18 Sail 2AL 2FL V3.SPM</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\SPMFiles\DX18\08DX18 Sail 2AL 2FL V3.SPM">
+      <Link>SPMFiles\DX18\08DX18 Sail 2AL 2FL V3.SPM</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\SPMFiles\DX18\09Acro.SPM">
+      <Link>SPMFiles\DX18\09Acro.SPM</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\SPMFiles\DX18\09Yellow Pitts Biplane.SPM">
+      <Link>SPMFiles\DX18\09Yellow Pitts Biplane.SPM</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\SPMFiles\DX18\10Big Foamie.SPM">
+      <Link>SPMFiles\DX18\10Big Foamie.SPM</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\SPMFiles\DX18\10Sail.SPM">
+      <Link>SPMFiles\DX18\10Sail.SPM</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\SPMFiles\DX18\11Acro.SPM">
+      <Link>SPMFiles\DX18\11Acro.SPM</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\SPMFiles\DX18\11Little Foamie.SPM">
+      <Link>SPMFiles\DX18\11Little Foamie.SPM</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\SPMFiles\DX18\12Acro.SPM">
+      <Link>SPMFiles\DX18\12Acro.SPM</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\SPMFiles\DX18\13Acro.SPM">
+      <Link>SPMFiles\DX18\13Acro.SPM</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

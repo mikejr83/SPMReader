@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema id="DX18"
-           targetNamespace="urn:SPMReader/Spektrum/DX18.xsd"
+           targetNamespace="urn:SPMReader/Spektrum/DX8.xsd"
            elementFormDefault="qualified"
-           xmlns="urn:SPMReader/Spektrum/DX18.xsd"
+           xmlns="urn:SPMReader/Spektrum/DX8.xsd"
            xmlns:desc="urn:SPMReader/ModelDescription.xsd"
            xmlns:spek="urn:SPMReader/Spektrum/Spektrum.xsd"
            xmlns:xs="http://www.w3.org/2001/XMLSchema">
-<!-- /n:SPMReader.Models.Spektrum.DX18 /c ..\..\ModelDescription\ModelDescription.xsd Spektrum.xsd $(ItemPath)  -->
+  <!-- /n:SPMReader.Models.Spektrum.DX8 /c ..\..\ModelDescription\ModelDescription.xsd Spektrum.xsd $(ItemPath)  -->
   <xs:import namespace="urn:SPMReader/ModelDescription.xsd" schemaLocation="..\..\ModelDescription\ModelDescription.xsd" />
   <xs:import namespace="urn:SPMReader/Spektrum/Spektrum.xsd" schemaLocation="Spektrum.xsd" />
 

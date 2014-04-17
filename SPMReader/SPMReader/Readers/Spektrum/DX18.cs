@@ -8,11 +8,78 @@ using System.Xml.Linq;
 using SPMReader.Helpers;
 using SPMReader.Readers;
 using SPMReader.Convertable;
+using SPMReader.Models.Spektrum.DX18;
 
 namespace SPMReader.Readers.Spektrum
 {
   public class DX18 : Spektrum, IConvertableReader
   {
+    public static SpektrumModel CreateTestModel()
+    {
+      SpektrumModel model = new SpektrumModel()
+      {
+        ModelDescription = new ModelDescription()
+        {
+          EOFMarkerText = "*EOF*",
+          NewLineMarker = "&#xD;"
+        },
+        Spektrum = new SpektrumInformation()
+        {
+          Generator = "DX18",
+          VCode = " 1.00",
+          PosIndex = "5",
+          Type = "Acro",
+          curveIndex = "7",
+          enabXPLUS = "Disabled",
+          Name = "DHC-6 Twin Otter",
+          AttributeDescriptors = new Descriptor[] 
+          { 
+            new Descriptor()
+            {
+              AttributeName = "Generator",
+              IsString = true,
+              SeparatorStyle="=",
+              ValueHasPreceedingSpace=false
+            },
+            new Descriptor()
+            {
+              AttributeName = "VCode",
+              IsString = true,
+              SeparatorStyle="=",
+              ValueHasPreceedingSpace=false
+            },
+            new Descriptor()
+            {
+              AttributeName = "PosIndex",
+              IsString = false,
+              SeparatorStyle="=",
+              ValueHasPreceedingSpace=true
+            },
+            new Descriptor()
+            {
+              AttributeName = "Type",
+              IsString = false,
+              SeparatorStyle="=",
+              ValueHasPreceedingSpace=false
+            }
+          }
+        },
+        Trainer = new Trainer()
+        {
+          Type = "Disabled",
+          conditionID = "92",
+          MOverride = "Disabled",
+          activePositions = "0",
+          AttributeDescriptors = new Descriptor[] 
+          {
+
+          }
+        }
+      };
+
+      return model;
+    }
+
     XDocument _ReadFile = null;
     Models.Spektrum.DX18.SpektrumModel _Model = null;
 
