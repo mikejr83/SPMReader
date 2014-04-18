@@ -9,6 +9,7 @@ using SPMReader.Helpers;
 using SPMReader.Readers;
 using SPMReader.Convertable;
 using SPMReader.Models.Spektrum.DX18;
+using NLog;
 
 namespace SPMReader.Readers.Spektrum
 {
@@ -80,6 +81,8 @@ namespace SPMReader.Readers.Spektrum
       return model;
     }
 
+    static Logger _Logger = LogManager.GetCurrentClassLogger ();
+
     XDocument _ReadFile = null;
     Models.Spektrum.DX18.SpektrumModel _Model = null;
 
@@ -132,7 +135,7 @@ namespace SPMReader.Readers.Spektrum
       }
       catch (Exception e)
       {
-        Console.WriteLine("Failed to deserialize the DX18 XML to an object structure. " + e.ToString());
+        _Logger.ErrorException ("Failed to deserialize the DX18 XML to an object structure.", e);
       }
 
       this._ReadFile = doc;

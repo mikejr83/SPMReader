@@ -5,6 +5,7 @@
 /SPMReader/*/obj
 /SPMReaderLinuxConsole/SPMReaderLinuxConsole/bin
 /SPMFiles/*/*.xml
+/SPMReader/packages/NLog*
 *~
 
 *.userprefs

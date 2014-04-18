@@ -25,6 +25,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <Commandlineparameters>"-WriteXML ../../../../SPMFiles/DX18/09Yellow Pitts Biplane.SPM"</Commandlineparameters>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -89,7 +90,6 @@
     </None>
     <None Include="packages.config" />
     <None Include="NLog.xsd" />
-    <None Include="NLog.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Condition="Exists('$(MSBuildToolsPath)\Microsoft.CSharp.targets')" Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
