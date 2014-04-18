@@ -16,6 +16,8 @@ namespace SPMReader
     const string DEBUG_FLAG = "-Debug";
     const string WRITE_XML_FLAG = "-WriteXML";
 
+    static readonly string[] CHECKS = new string[]{DEBUG_FLAG, WRITE_XML_FLAG};
+
     const string USAGE = @"SPEKTRUM SPM File Reader
 ------------------------
 Usage: SPMReader.exe <filename>
@@ -23,10 +25,22 @@ Usage: SPMReader.exe <filename>
 
     static void Main(string[] args)
     {
-      if (args == null || args.Length < 1)
-      {
-        Console.WriteLine(USAGE);
+      if (args == null || args.Length < 1) {
+        Console.WriteLine (USAGE);
         return;
+      } else if (args.Length == 1) {
+        foreach (string argTest in CHECKS) {
+          if(args[0].Contains(argTest)){
+            string newArgPos0 = args [0].Replace (argTest, string.Empty);
+            args [0] = newArgPos0.Trim();
+            List<string> newArgs = new List<string> (args);
+            if (argTest.StartsWith ("-"))
+              newArgs.Insert (0, argTest);
+            else
+              newArgs.Add (argTest);
+            args = newArgs.ToArray ();
+          }
+        }
       }
 
       string filename = args.LastOrDefault();
@@ -35,7 +49,6 @@ Usage: SPMReader.exe <filename>
       {
         System.Diagnostics.Debugger.Launch();
       }
-
 
       Reader reader = SPMReaderFactory.CreateReader(filename);
 
@@ -66,7 +79,7 @@ Usage: SPMReader.exe <filename>
 
         FileInfo input = new FileInfo(filename);
 
-        string outputFilename = filename.ToLowerInvariant().Replace(".spm", ".xml");
+        string outputFilename = filename.Substring(0, filename.Length - 4) + ".xml";
 
         string temp = Path.GetTempFileName();
 

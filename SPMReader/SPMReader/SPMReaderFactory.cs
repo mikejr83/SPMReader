@@ -16,7 +16,7 @@ namespace SPMReader
       if (!File.Exists(filename))
         throw new FileNotFoundException("Cannot find SPM file!", filename);
 
-      IEnumerable<string> lines = File.ReadLines(filename);
+      List<string> lines = File.ReadLines(filename).ToList ();
 
       string generatorLine = null;
       foreach (string line in lines)

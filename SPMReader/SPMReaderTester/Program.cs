@@ -11,7 +11,9 @@ namespace SPMReaderTester
     {
       FileInfo assemblyFI = new FileInfo(typeof(MainClass).Assembly.Location);
 
-      var spmFileslist = Directory.EnumerateFiles(Path.Combine(assemblyFI.DirectoryName, "SPMFiles"), "*.SPM", SearchOption.AllDirectories).ToList();
+      string spmFilesDirectoryName = Path.Combine(assemblyFI.DirectoryName, "SPMFiles");
+
+      var spmFileslist = Directory.EnumerateFiles(spmFilesDirectoryName, "*", SearchOption.AllDirectories).ToList();
 
       foreach(string spmFilename in spmFileslist)
       {
