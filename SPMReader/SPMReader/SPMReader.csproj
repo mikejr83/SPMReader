@@ -24,7 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <Commandlineparameters>"-WriteXML ../../../../SPMFiles/DX18/09Yellow Pitts Biplane.SPM"</Commandlineparameters>
+    <Commandlineparameters>"-Convert:DX8 ../../../../SPMFiles/DX18/09Yellow Pitts Biplane.SPM"</Commandlineparameters>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -70,6 +70,7 @@
       <DependentUpon>DX18.xsd</DependentUpon>
     </Compile>
     <Compile Include="Writers\ConversionWriter.cs" />
+    <Compile Include="Writers\Spektrum\DX8.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

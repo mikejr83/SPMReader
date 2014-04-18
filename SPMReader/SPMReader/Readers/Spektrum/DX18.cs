@@ -94,15 +94,18 @@ namespace SPMReader.Readers.Spektrum
     public DX18(string generator, string fileContents)
       : base(generator, fileContents)
     {
-
+      _Logger.Debug ("DX18 Reader is created.");
     }
 
     protected override void ReadContents()
     {
+      _Logger.Debug ("Reading the contents of the file as individual lines.");
       string[] lines = this.FileContents.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+      _Logger.Debug ("Finished reading. Found {0} lines.", lines.Length);
 
       XElement currentNode = null;
       XElement modelDescription = null;
+      _Logger.Debug ("Using the base Spektrum XML model creation...");
       XDocument doc = this.CreateXDocument(out modelDescription);
       currentNode = doc.Root;
 
@@ -121,21 +124,15 @@ namespace SPMReader.Readers.Spektrum
         }
       }
 
+      _Logger.Debug ("Finished processing all lines.");
+
       if (!string.IsNullOrEmpty(postfixText))
       {
+        _Logger.Debug ("Postfix text was found. Storing this meta information.");
         XElement postfixModelText = new XElement(this.ModelDescNamespace + "PostfixModelText");
         postfixModelText.Value = String.Join(" ", UTF8Encoding.UTF8.GetBytes(postfixText));
         //postfixModelText.SetValue(postfixText);
         modelDescription.Add(postfixModelText);
-      }
-
-      try
-      {
-        this._Model = SerializationHelper<Models.Spektrum.DX18.SpektrumModel>.DeserializeFromParse(doc.ToString());
-      }
-      catch (Exception e)
-      {
-        _Logger.ErrorException ("Failed to deserialize the DX18 XML to an object structure.", e);
       }
 
       this._ReadFile = doc;
@@ -150,6 +147,21 @@ namespace SPMReader.Readers.Spektrum
 
     public IConvertableModel LoadConvertableModel()
     {
+      if (!this.IsRead)
+        throw new InvalidOperationException ("The SPM file has not been read");
+
+      _Logger.Info ("Loading a convertable model for a DX18 read SPM file.");
+      _Logger.Debug ("Deserializing the XML to a Models.Spektrum.DX18.SpektrumModel type.");
+
+      try
+      {
+        this._Model = SerializationHelper<Models.Spektrum.DX18.SpektrumModel>.DeserializeFromParse(this._ReadFile.ToString());
+      }
+      catch (Exception e)
+      {
+        _Logger.ErrorException ("Failed to deserialize the DX18 XML to an object structure.", e);
+      }
+
       return this._Model as IConvertableModel;
     }
 

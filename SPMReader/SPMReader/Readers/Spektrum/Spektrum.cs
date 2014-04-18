@@ -5,11 +5,14 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using NLog;
 
 namespace SPMReader.Readers.Spektrum
 {
   public abstract class Spektrum : Reader
   {
+    static Logger _Logger = LogManager.GetCurrentClassLogger();
+
     XNamespace _Namespace = "urn:SPMReader/Spektrum/Spektrum.xsd";
     XNamespace _DescNamespace = "urn:SPMReader/ModelDescription.xsd";
 
@@ -55,6 +58,8 @@ namespace SPMReader.Readers.Spektrum
 
     protected virtual XDocument CreateXDocument(out XElement modelDescription)
     {
+      _Logger.Debug ("Creating new XDocument with namespace of {0} and model description namespace of {1}", 
+                    this.Namespace, this.ModelDescNamespace);
       XDocument doc = new XDocument();
       doc.Add(new XElement(this.Namespace + "SPM",
         new XAttribute(XNamespace.Xmlns + "modelDesc", this.ModelDescNamespace)));
@@ -71,6 +76,7 @@ namespace SPMReader.Readers.Spektrum
     {
       if (line.Equals("*EOF*", StringComparison.OrdinalIgnoreCase))
       {
+        _Logger.Debug ("End of file marker found.");
         return true;
       }
 
@@ -78,10 +84,13 @@ namespace SPMReader.Readers.Spektrum
       {
         if (line[1] == '/')
         {
+          _Logger.Debug ("XML or Bracket XML \"close\" line type found.");
           currentNode = currentNode.Parent;
         }
         else
         {
+          _Logger.Debug ("XML or Bracket XML \"open\" line type found.");
+
           XElement element = new XElement(this.Namespace + line.Substring(1, line.Length - 2));
           currentNode.Add(element);
           currentNode = element;

@@ -16,11 +16,15 @@ namespace SPMReader
   {
     const string DEBUG_FLAG = "-Debug";
     const string WRITE_XML_FLAG = "-WriteXML";
-    const string USAGE = @"SPEKTRUM SPM File Reader
+    const string CONVERT_FLAG = "-Convert";
+    static readonly string USAGE = string.Format (@"SPEKTRUM SPM File Reader
 ------------------------
-Usage: SPMReader.exe <filename>
-";
-    static readonly string[] CHECKS = new string[] { DEBUG_FLAG, WRITE_XML_FLAG };
+Usage: SPMReader.exe [options] <filename>
+{0}\tWrite standardized output XML file (outputs to current directory)
+{1}:[RadioModelType]\tConverts the given file to a specified radio type.
+\tExample to convert from given file type to DX8 {1}:[DX8] 
+", WRITE_XML_FLAG, CONVERT_FLAG);
+    static readonly string[] CHECKS = new string[] { DEBUG_FLAG, WRITE_XML_FLAG, CONVERT_FLAG };
     static Logger _Logger = LogManager.GetCurrentClassLogger ();
 
     static void Main (string[] args)
@@ -33,13 +37,19 @@ Usage: SPMReader.exe <filename>
       } else if (args.Length == 1) {
         foreach (string argTest in CHECKS) {
           if (args [0].Contains (argTest)) {
-            string newArgPos0 = args [0].Replace (argTest, string.Empty);
+            string newArg = argTest;
+            string newArgPos0 = args [0].Replace (newArg, string.Empty);
+            if (!newArgPos0.StartsWith (" ")) {
+              int index = newArgPos0.IndexOf (" ");
+              newArg += newArgPos0.Substring (0, index);
+              newArgPos0 = newArgPos0.Substring (index);
+            }
             args [0] = newArgPos0.Trim ();
             List<string> newArgs = new List<string> (args);
             if (argTest.StartsWith ("-"))
-              newArgs.Insert (0, argTest);
+              newArgs.Insert (0, newArg);
             else
-              newArgs.Add (argTest);
+              newArgs.Add (newArg);
             args = newArgs.ToArray ();
           }
         }
@@ -54,7 +64,7 @@ Usage: SPMReader.exe <filename>
       Reader reader = SPMReaderFactory.CreateReader (filename);
 
       try {
-        _Logger.Info("Reading file for {0} model of radio.", reader.ModelName);
+        _Logger.Info ("Reading file for {0} model of radio.", reader.ModelName);
         reader.Read ();
       } catch (NotImplementedException) {
         string errorMsg = string.Format ("The radio model, {0}, is not supported at this time.", reader.ModelName);
@@ -72,6 +82,7 @@ Usage: SPMReader.exe <filename>
       }
 
       if (args.Contains (WRITE_XML_FLAG)) {
+        _Logger.Info ("Outputing standardized model XML.");
         _Logger.Info ("Preparing XML document.");
         object doc = ((SPMReader.Readers.Spektrum.Spektrum)(reader)).ExportXDocument ();
 
@@ -86,6 +97,15 @@ Usage: SPMReader.exe <filename>
         File.WriteAllText (temp, output);
         _Logger.Info ("Ouptting XML document to: {0}", outputFilename);
         File.Copy (temp, outputFilename, true); 
+      } else if (args.Any(a => a.StartsWith(CONVERT_FLAG))) {
+        if (!(reader is IConvertableReader)) {
+          _Logger.Info ("The reader, {0}, does not support converting of files.", reader.ModelName);
+          return;
+        }
+        string convertTo = 
+          args.Where (a => a.StartsWith (CONVERT_FLAG)).FirstOrDefault ().Split (new char[] { ':' }).LastOrDefault ();
+        _Logger.Info ("Attempting file conversion.");
+        IConvertableModel baseModel = ((IConvertableReader)reader).LoadConvertableModel ();
       }
 
       _Logger.Info ("Done!");
