@@ -102,15 +102,15 @@ namespace SPMReader.Writers.Spektrum
 
     #region IConvertableWriter Members
 
-    public void Convert(IConvertableReader reader)
+    public string Convert(IConvertableModel model)
     {
-      IConvertableModel model = reader.LoadConvertableModel();
-
       SpektrumModel newModel = new SpektrumModel();
 
       newModel.Spektrum = new SpektrumInformation();
       newModel.Spektrum.Name = model.ModelName;
       newModel.Spektrum.VCode = " 1.05";
+
+      return null;
     }
 
     #endregion

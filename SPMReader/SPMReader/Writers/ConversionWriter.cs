@@ -18,7 +18,7 @@ namespace SPMReader.Writers
 
     public void Write(IConvertableWriter writer)
     {
-      writer.Convert(this.Reader);
+ 
     }
   }
 }

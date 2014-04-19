@@ -8,6 +8,6 @@ namespace SPMReader.Convertable
 {
   public interface IConvertableWriter
   {
-    void Convert(IConvertableReader reader);
+    string Convert(IConvertableModel model);
   }
 }
