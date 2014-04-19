@@ -19,7 +19,7 @@ namespace SPMReaderTester
       {
         Console.WriteLine(string.Format("********** {0} **********", spmFilename));
         //ProcessStartInfo psi = new ProcessStartInfo("SPMReader.exe", string.Format("-Debug \"{0}\"", spmFilename));
-        ProcessStartInfo psi = new ProcessStartInfo("SPMReader.exe", string.Format("\"{0}\"", spmFilename));
+        ProcessStartInfo psi = new ProcessStartInfo("SPMReader.exe", string.Format("-WriteXML \"{0}\"", spmFilename));
         psi.UseShellExecute = false;
         psi.RedirectStandardError = true;
         psi.RedirectStandardOutput = true;
