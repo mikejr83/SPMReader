@@ -9,6 +9,7 @@ using SPMReader.Helpers;
 using SPMReader.Readers;
 using SPMReader.Writers;
 using NLog;
+using System.Xml.Linq;
 
 namespace SPMReader
 {
@@ -108,9 +109,9 @@ Usage: SPMReader.exe [options] <filename>
         IConvertibleModel baseModel = ((IConvertibleReader)reader).LoadConvertableModel ();
         IConvertibleWriter writer = ConversionWriterFactory.LoadConvertableWriter (convertTo);
 
-        string newFileContents = writer.Convert (baseModel);
+        XDocument newFileContents = writer.Convert (baseModel);
 
-        
+        ((Writer)writer).WriteToModelFile (Path.GetTempFileName (), newFileContents);
       }
 
       _Logger.Info ("Done!");

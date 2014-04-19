@@ -22,5 +22,10 @@ namespace SPMReader.Models.Spektrum.DX18
     }
 
     #endregion
+
+    public SpektrumModel()
+    {
+      this.Spektrum = new SpektrumInformation();
+    }
   }
 }

@@ -49,9 +49,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Convertable\IConvertableModel.cs" />
-    <Compile Include="Convertable\IConvertableReader.cs" />
-    <Compile Include="Convertable\IConvertableWriter.cs" />
     <Compile Include="Helpers\SerializationHelper.cs" />
     <Compile Include="Models\Spektrum\DX18\SpektrumModel.cs" />
     <Compile Include="Models\Spektrum\DX8\DX8.cs">
@@ -71,6 +68,11 @@
     </Compile>
     <Compile Include="Writers\Spektrum\DX8.cs" />
     <Compile Include="Writers\ConversionWriterFactory.cs" />
+    <Compile Include="Convertable\IConvertibleModel.cs" />
+    <Compile Include="Convertable\IConvertibleReader.cs" />
+    <Compile Include="Convertable\IConvertibleWriter.cs" />
+    <Compile Include="Models\Spektrum\DX8\SpektrumModel.cs" />
+    <Compile Include="Writers\Writer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

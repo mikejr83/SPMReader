@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace SPMReader.Convertable
 {
   public interface IConvertibleWriter
   {
-    string Convert(IConvertibleModel model);
+    XDocument Convert(IConvertibleModel model);
   }
 }
