@@ -4,7 +4,7 @@ using SPMReader.Writers;
 
 namespace SPMReader.Writers.Spektrum
 {
-  public class DX8 : IConvertableWriter, ISPMWriter
+  public class DX8 : IConvertibleWriter, ISPMWriter
   {
     public DX8 ()
     {
@@ -12,7 +12,7 @@ namespace SPMReader.Writers.Spektrum
 
     #region IConvertableWriter implementation
 
-    public string Convert (IConvertableModel model)
+    public string Convert (IConvertibleModel model)
     {
       throw new NotImplementedException ();
     }

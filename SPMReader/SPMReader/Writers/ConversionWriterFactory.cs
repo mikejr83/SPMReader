@@ -9,9 +9,9 @@ namespace SPMReader.Writers
 {
   public class ConversionWriterFactory
   {
-    public static IConvertableWriter LoadConvertableWriter (string radioModelType)
+    public static IConvertibleWriter LoadConvertableWriter (string radioModelType)
     {
-      IConvertableWriter writer = null;
+      IConvertibleWriter writer = null;
 
       switch (radioModelType) {
       case "DX8":

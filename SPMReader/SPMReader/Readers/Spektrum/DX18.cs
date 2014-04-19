@@ -13,7 +13,7 @@ using NLog;
 
 namespace SPMReader.Readers.Spektrum
 {
-  public class DX18 : Spektrum, IConvertableReader
+  public class DX18 : Spektrum, IConvertibleReader
   {
     public static SpektrumModel CreateTestModel()
     {
@@ -145,7 +145,7 @@ namespace SPMReader.Readers.Spektrum
 
     #region IConvertableReader Members
 
-    public IConvertableModel LoadConvertableModel()
+    public IConvertibleModel LoadConvertableModel()
     {
       if (!this.IsRead)
         throw new InvalidOperationException ("The SPM file has not been read");
@@ -162,7 +162,7 @@ namespace SPMReader.Readers.Spektrum
         _Logger.ErrorException ("Failed to deserialize the DX18 XML to an object structure.", e);
       }
 
-      return this._Model as IConvertableModel;
+      return this._Model as IConvertibleModel;
     }
 
     #endregion

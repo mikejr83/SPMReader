@@ -7,7 +7,7 @@ using SPMReader.Convertable;
 
 namespace SPMReader.Models.Spektrum.DX18
 {
-  public partial class SpektrumModel : IConvertableModel
+  public partial class SpektrumModel : IConvertibleModel
   {
     #region IConvertableModel Members
 

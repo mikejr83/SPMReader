@@ -10,7 +10,7 @@ using SPMReader.Helpers;
 
 namespace SPMReader.Writers.Spektrum
 {
-  public class DX18 : ISPMWriter, IConvertableWriter
+  public class DX18 : ISPMWriter, IConvertibleWriter
   {
     Readers.Spektrum.DX18 _Reader;
 
@@ -103,7 +103,7 @@ namespace SPMReader.Writers.Spektrum
 
     #region IConvertableWriter Members
 
-    public string Convert(IConvertableModel model)
+    public string Convert(IConvertibleModel model)
     {
       SpektrumModel newModel = new SpektrumModel();
 

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SPMReader.Convertable
 {
-  public interface IConvertableWriter
+  public interface IConvertibleReader
   {
-    string Convert(IConvertableModel model);
+    IConvertibleModel LoadConvertableModel();
   }
 }

@@ -98,15 +98,15 @@ Usage: SPMReader.exe [options] <filename>
         _Logger.Info ("Ouptting XML document to: {0}", outputFilename);
         File.Copy (temp, outputFilename, true); 
       } else if (args.Any (a => a.StartsWith (CONVERT_FLAG))) {
-        if (!(reader is IConvertableReader)) {
+        if (!(reader is IConvertibleReader)) {
           _Logger.Info ("The reader, {0}, does not support converting of files.", reader.ModelName);
           return;
         }
         string convertTo = 
           args.Where (a => a.StartsWith (CONVERT_FLAG)).FirstOrDefault ().Split (new char[] { ':' }).LastOrDefault ();
         _Logger.Info ("Attempting file conversion.");
-        IConvertableModel baseModel = ((IConvertableReader)reader).LoadConvertableModel ();
-        IConvertableWriter writer = ConversionWriterFactory.LoadConvertableWriter (convertTo);
+        IConvertibleModel baseModel = ((IConvertibleReader)reader).LoadConvertableModel ();
+        IConvertibleWriter writer = ConversionWriterFactory.LoadConvertableWriter (convertTo);
 
         string newFileContents = writer.Convert (baseModel);
 

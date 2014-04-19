@@ -9,7 +9,7 @@ using SPMReader.Helpers;
 
 namespace SPMReader.Readers.Spektrum
 {
-  public class DX8 : Spektrum, IConvertableReader
+  public class DX8 : Spektrum, IConvertibleReader
   {
     XDocument _ReadFile = null;
     Models.Spektrum.DX8.SpektrumModel _Model = null;
@@ -27,7 +27,7 @@ namespace SPMReader.Readers.Spektrum
 
     #region IConvertableReader Members
 
-    public IConvertableModel LoadConvertableModel()
+    public IConvertibleModel LoadConvertableModel()
     {
       throw new NotImplementedException();
     }
