@@ -97,7 +97,7 @@ Usage: SPMReader.exe [options] <filename>
         File.WriteAllText (temp, output);
         _Logger.Info ("Ouptting XML document to: {0}", outputFilename);
         File.Copy (temp, outputFilename, true); 
-      } else if (args.Any(a => a.StartsWith(CONVERT_FLAG))) {
+      } else if (args.Any (a => a.StartsWith (CONVERT_FLAG))) {
         if (!(reader is IConvertableReader)) {
           _Logger.Info ("The reader, {0}, does not support converting of files.", reader.ModelName);
           return;
@@ -106,6 +106,11 @@ Usage: SPMReader.exe [options] <filename>
           args.Where (a => a.StartsWith (CONVERT_FLAG)).FirstOrDefault ().Split (new char[] { ':' }).LastOrDefault ();
         _Logger.Info ("Attempting file conversion.");
         IConvertableModel baseModel = ((IConvertableReader)reader).LoadConvertableModel ();
+        IConvertableWriter writer = ConversionWriterFactory.LoadConvertableWriter (convertTo);
+
+        string newFileContents = writer.Convert (baseModel);
+
+        
       }
 
       _Logger.Info ("Done!");

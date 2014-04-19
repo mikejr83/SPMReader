@@ -69,8 +69,8 @@
     <Compile Include="Models\Spektrum\DX18\DX18.cs">
       <DependentUpon>DX18.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Writers\ConversionWriter.cs" />
     <Compile Include="Writers\Spektrum\DX8.cs" />
+    <Compile Include="Writers\ConversionWriterFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

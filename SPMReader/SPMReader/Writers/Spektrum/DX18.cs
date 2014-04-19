@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using SPMReader.Convertable;
 using SPMReader.Models.Spektrum.DX18;
+using SPMReader.Helpers;
 
 namespace SPMReader.Writers.Spektrum
 {
@@ -110,7 +111,7 @@ namespace SPMReader.Writers.Spektrum
       newModel.Spektrum.Name = model.ModelName;
       newModel.Spektrum.VCode = " 1.05";
 
-      return null;
+      return SerializationHelper<SpektrumModel>.Serialize (newModel);
     }
 
     #endregion
