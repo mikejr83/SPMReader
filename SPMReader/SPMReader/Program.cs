@@ -106,6 +106,7 @@ Usage: SPMReader.exe [options] <filename>
           args.Where (a => a.StartsWith (CONVERT_FLAG)).FirstOrDefault ().Split (new char[] { ':' }).LastOrDefault ();
         _Logger.Info ("Attempting file conversion.");
         IConvertableModel baseModel = ((IConvertableReader)reader).LoadConvertableModel ();
+
       }
 
       _Logger.Info ("Done!");
