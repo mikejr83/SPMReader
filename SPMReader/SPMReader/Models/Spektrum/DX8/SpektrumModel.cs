@@ -8,6 +8,9 @@ namespace SPMReader.Models.Spektrum.DX8
     {
       this.ModelDescription = new ModelDescription ();
       this.Spektrum = new SpektrumInformation ();
+      this.Trainer = new Trainer ();
+      this.Config = new Configuration ();
+      this.FMode = new FlightMode ();
     }
   }
 }

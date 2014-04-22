@@ -73,6 +73,14 @@
     <Compile Include="Convertable\IConvertibleWriter.cs" />
     <Compile Include="Models\Spektrum\DX8\SpektrumModel.cs" />
     <Compile Include="Writers\Writer.cs" />
+    <Compile Include="Convertable\IConvertibleModelInformation.cs" />
+    <Compile Include="Models\Spektrum\DX18\SpektrumInformation.cs" />
+    <Compile Include="Convertable\IConvertibleTrainer.cs" />
+    <Compile Include="Models\Spektrum\DX18\Trainer.cs" />
+    <Compile Include="Models\Spektrum\DX18\Configuration.cs" />
+    <Compile Include="Convertable\IConvertibleConfiguration.cs" />
+    <Compile Include="Convertable\IConvertibleFlightMode.cs" />
+    <Compile Include="Models\Spektrum\DX18\FlightMode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

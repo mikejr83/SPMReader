@@ -101,7 +101,7 @@ namespace SPMReader.Writers.Spektrum
     {
       SpektrumModel newModel = new SpektrumModel ();
 
-      newModel.Spektrum.Name = model.ModelName;
+      newModel.Spektrum.Name = model.StandardizedModelInformation.ModelName;
       newModel.Spektrum.VCode = " 1.05";
 
       string serializedModelString = SerializationHelper<SpektrumModel>.Serialize (newModel);

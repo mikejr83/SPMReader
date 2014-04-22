@@ -9,23 +9,21 @@ namespace SPMReader.Models.Spektrum.DX18
 {
   public partial class SpektrumModel : IConvertibleModel
   {
-    #region IConvertableModel Members
+    #region IConvertibleModel implementation
+    public IConvertibleModelInformation StandardizedModelInformation { get { return this.Spektrum; } }
 
-    public string ModelName
-    {
-      get { return this.Spektrum.Name; }
-    }
+    public IConvertibleTrainer StandardizedTrainer{ get { return this.Trainer; } }
 
-    public string Version
-    {
-      get { return this.Spektrum.VCode; }
-    }
+    public IConvertibleConfiguration StandardizedConfiguration{ get { return this.Config; } }
 
+    public IConvertibleFlightMode StandardizedFlightMode{ get { return this.FMode; } }
     #endregion
-
-    public SpektrumModel()
+    public SpektrumModel ()
     {
-      this.Spektrum = new SpektrumInformation();
+      this.Spektrum = new SpektrumInformation ();
+      this.Config = new Configuration ();
+      this.FMode = new FlightMode ();
+      this.Trainer = new Trainer ();
     }
   }
 }

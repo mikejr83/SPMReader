@@ -5,6 +5,8 @@ using SPMReader.Models.Spektrum.DX8;
 using SPMReader.Helpers;
 using System.Xml.Linq;
 using NLog;
+using System.Xml;
+using System.IO;
 
 namespace SPMReader.Writers.Spektrum
 {
@@ -34,15 +36,36 @@ namespace SPMReader.Writers.Spektrum
       _Logger.Info ("Converting model to a Spektrum DX8 radio type.");
       SpektrumModel newDX8Model = new SpektrumModel ();
 
-      _Logger.Debug ("Model: {0}", model.ModelName);
-      newDX8Model.Spektrum.Name = model.ModelName;
+      _Logger.Debug ("Model: {0}", model.StandardizedModelInformation.ModelName);
+      _Logger.Debug ("Converting the model information.");
+      newDX8Model.Spektrum.Name = model.StandardizedModelInformation.ModelName;
+      newDX8Model.Spektrum.VCode = model.StandardizedModelInformation.Version;
+
+      _Logger.Debug ("Converting the configuration information.");
+      newDX8Model.Config.FrameRate = model.StandardizedConfiguration.FrameRate;
+      newDX8Model.Config.trimMode = model.StandardizedConfiguration.TrimMode;
+      newDX8Model.Config.TrimType = model.StandardizedConfiguration.TrimType;
+
+      _Logger.Debug ("Converting the trainer information.");
+      newDX8Model.Trainer.Type = model.StandardizedTrainer.Type;
+
+      _Logger.Debug ("Converting FMode.");
+      newDX8Model.FMode.switch_a = model.StandardizedFlightMode.SwitchA;
+      newDX8Model.FMode.switch_b = model.StandardizedFlightMode.SwitchB;
+      newDX8Model.FMode.switch_c = model.StandardizedFlightMode.SwitchC;
+      newDX8Model.FMode.size = model.StandardizedFlightMode.Size;
 
       DateTime start = DateTime.Now;
       _Logger.Debug ("Starting serialization...");
       string serializedModelString  = SerializationHelper<SpektrumModel>.Serialize (newDX8Model);
       _Logger.Debug ("Serialization complete. It took: {0}", DateTime.Now - start);
 
-      return XDocument.Parse (serializedModelString);
+      StreamReader sReader = 
+        new StreamReader (new MemoryStream (System.Text.UTF8Encoding.Default.GetBytes (serializedModelString)));
+
+      XmlReader reader = XmlReader.Create (sReader);
+
+      return XDocument.Load (reader);
     }
 
     #endregion
